@@ -138,6 +138,71 @@ class listaB():
     def getLast(self):
         return self.last
         
-		
+                
+#-----------------------------------------------LISTA SIMPLE EMPIEZA
+class nodoListaSimple():
+
+    def __init__(self, val, comparable):
+        self.sig = None
+        self.valor = valor
+        self.comparable = comparable
+
+class listaSimple():
+
+    def __init__(self):
+        self.first = None
+        self.last = None
+
+    def insertar(self, comparable, valor):
+        if self.first == None:
+            self.first = self.last = nodoListaSimple(valor, comparable)
+        else:
+            self.last = self.last.sig = nodoListaSimple(valor, comparable)
+
+    def buscar(self, comparable):
+        aux = self.first
+        while(aux != None):
+            if aux.comparable == comparable:
+                return aux
+            else:
+                aux = aux.sig
+        return None
+
+    def eliminar(self, comparable):
+        target = self.first
+        targetAnt = None
+        encontrado == False
+        while(encontrado != True):
+            if aux.comparable == comparable:
+                encontrado = True
+            else:
+                targetAnt = target
+                target = target.sig
+        return None
+
+        if target == self.first:
+            if target.sig == None:
+                self.first = self.last = None
+            else:
+                self.first = target.sig
+        else:
+            if target.sig == None:
+                self.last = targetAnt
+            else:
+                targetAnt.sig = target.sig
+
+    def toDot(self):
+        self.codigo2 = None
+        self.codigo2 = " "
+        aux = self.first
+        while (aux != None):
+            if aux.sig != None:
+                self.codigo2 = str(self.codigo2) + str(Relacion(aux.comparable, aux.sig.comparable).data)
+            elif aux == self.first:
+                self.codigo2 = Nodo(aux.comparable).data
+            aux = aux.sig
+        codigoTotal = str(self.codigo2)
+        return codigoTotal
+
 if __name__ == "__main__":
   app.run(debug=True, host='0.0.0.0')
