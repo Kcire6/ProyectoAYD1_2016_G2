@@ -1132,7 +1132,6 @@ listaDominios = []
 listaDominios.append("gmail.com")
 userDropBox = Usuario("correogmail", "staff@gmail.com","staff")
 matrizGmail.insertar("s", "gmail.com", userDropBox, "staff@gmail.com")
-<<<<<<< HEAD
 
 #-------------------------------------Mandar correo
 @app.route('/mandarCorreo',methods=['POST']) 
@@ -1148,9 +1147,37 @@ def mandarCorreo():
         return "Exito"
     else:
         return "Error" #El correo del recipiente no existe.
-=======
->>>>>>> origin/master
-
-
+		
+#------------------------------------Eliminar correo
+@app.route('/eliminarCorreo',methods=['POST']) 
+def eliminarCorreo():
+    send = str(request.form['sender'])
+    categoria = str(request.form['categoria'])
+    receive = str(request.form['receiver'])
+    sender = matrizGmail.buscarConString(send)
+    receiver = matrizGmail.buscarConString(receive)
+    index = str(request.form['index'])
+    
+    if sender != None:
+        a = matrizGmail.buscarConString(receiver.data.correo)
+        if a != None:
+            b = a.correos.buscar(categoria)
+            if b != None:
+                c = b.senders.buscar(sender.data.correo)
+                if c != None:
+                    c.textos.eliminar(index)
+                    if c.textos.len == 0:
+                        b.senders.eliminar(send)
+                        return "Exito, hay que borrar el nodo."
+                    return "Exito"
+                else:
+                    return "Error1" #El sender no ha mandado correos al receiver en esta categoria
+            else:
+                return "Error2" #El receiver no tiene la categoria escogida
+        else:
+            return "Error3" #El receiver no existe
+    else:
+        return "Error4" #El sender no existe
+		
 if __name__ == "__main__":
   app.run(debug=True, host='0.0.0.0')
