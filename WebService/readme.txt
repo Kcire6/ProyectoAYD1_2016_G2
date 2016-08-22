@@ -1,3 +1,3 @@
 WEB SERVICE VERSION LOG 
 ------ LATEST VERSION ------
-0.8.1
+0.9.0
