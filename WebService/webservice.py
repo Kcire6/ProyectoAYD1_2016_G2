@@ -224,7 +224,102 @@ class nodoLista():
     
     def getSig(self):
         return self.sig    
+    
+class lista():
+    
+    def __init__(self):
+        self.first = None
+        self.last = None
+        self.len = 0
 
+    def insertar(self, valor, comparable):
+        if self.first == None:
+            self.first = self.last = nodoLista(valor, comparable)
+            self.len = self.len + 1;
+        else:
+            aux = self.last
+            self.last = nodoLista(valor, comparable)
+            self.last.setAnt(aux)
+            aux.setSig(self.last)
+            self.len = self.len + 1;
+    
+    def graphviz(self):
+        self.codigo2 = None
+        self.codigo2 = " "
+        aux = self.first
+        while (aux != None):
+            if aux.sig != None:
+                self.codigo2 = str(self.codigo2) + str(Relacion(aux.comparable, aux.sig.comparable).data)
+                self.codigo2 = str(self.codigo2) + str(Relacion(aux.sig.comparable, aux.comparable).data)
+            elif aux == self.first:
+                self.codigo2 = "\"" + str(aux.comparable) + "\""
+            aux = aux.sig
+        codigoTotal = str(self.codigo2)
+        return codigoTotal
+    
+    def getAll(self):
+        y = ""
+        aux = self.first
+        while (aux != None):
+            y = str(y) + ",,," + str(aux.comparable)
+            aux = aux.sig
+        return y
+            
+    def buscar(self, comparable):
+        aux = self.first
+        while aux != None:
+            if str(aux.comparable) == str(comparable):
+                return aux
+            else:
+                aux = aux.sig
+        return None
+    
+    def buscarIndex(self, dato):
+        try:
+            aux = self.first
+            for x in range(0,1000):
+                if str(aux.comparable) == str(dato):
+                    return int(int(x)+1)
+                else:
+                    if aux.sig != None:
+                        aux = aux.sig                   
+        except:
+            return -1
+    
+    def buscarConIndex(self, inde):
+        index = -1
+        index = int(inde)
+        if index != -1:
+            aux = self.first
+            for x in range(0, (index - 1)):
+                aux = aux.getSig()
+            return aux
+    
+    def eliminar(self, inde):
+        index = int(inde)
+        if index != -1:
+            aux = self.first
+            for x in range(0, (index - 1)):
+                aux = aux.getSig()
+            if aux == self.first:
+                self.first = aux.getSig()
+                if self.first != None:
+                    self.first.setAnt(None)
+                else:
+                    self.last = None
+                self.len = self.len - 1;
+            elif aux == self.last:
+                self.last = aux.getAnt()
+                self.last.setSig(None)
+                self.len = self.len - 1;
+            else:
+                aux.getAnt().setSig(aux.getSig())
+                aux.getSig().setAnt(aux.getAnt())
+                self.len = self.len - 1;
+
+    def getLast(self):
+        return self.last
+        
 
 #-----------------------------------------------LISTA DOBLEMENTE ENLAZADA TERMINA
 if __name__ == "__main__":
