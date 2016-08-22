@@ -1132,6 +1132,7 @@ listaDominios = []
 listaDominios.append("gmail.com")
 userDropBox = Usuario("correogmail", "staff@gmail.com","staff")
 matrizGmail.insertar("s", "gmail.com", userDropBox, "staff@gmail.com")
+<<<<<<< HEAD
 
 #-------------------------------------Mandar correo
 @app.route('/mandarCorreo',methods=['POST']) 
@@ -1147,6 +1148,8 @@ def mandarCorreo():
         return "Exito"
     else:
         return "Error" #El correo del recipiente no existe.
+=======
+>>>>>>> origin/master
 
 
 if __name__ == "__main__":
