@@ -138,7 +138,7 @@ class listaB():
     def getLast(self):
         return self.last
         
-                
+		        
 #-----------------------------------------------LISTA SIMPLE EMPIEZA
 class nodoListaSimple():
 
@@ -203,6 +203,29 @@ class listaSimple():
             aux = aux.sig
         codigoTotal = str(self.codigo2)
         return codigoTotal
+       
+class nodoLista():
+    
+    def __init__(self, val, comparable):
+        self.sig = None
+        self.ant = None
+        self.valor = val
+        self.comparable = comparable
+        self.senders = ABB()
+        
+    def setAnt(self, an):
+        self.ant = an
+        
+    def setSig(self, si):
+        self.sig = si
+        
+    def getAnt(self):
+        return self.ant
+    
+    def getSig(self):
+        return self.sig    
 
+
+#-----------------------------------------------LISTA DOBLEMENTE ENLAZADA TERMINA
 if __name__ == "__main__":
   app.run(debug=True, host='0.0.0.0')
