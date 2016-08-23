@@ -36,8 +36,8 @@ public class AccionesMS extends HttpServlet {
         try {
             String resultado = request.getParameter("boton");
             String sender = request.getParameter(resultado);
-            
-           if(resultado.equals("DELETE")){
+
+            if (resultado.equals("DELETE")) {
                 response.sendRedirect("delete.jsp");
             }
         } finally {

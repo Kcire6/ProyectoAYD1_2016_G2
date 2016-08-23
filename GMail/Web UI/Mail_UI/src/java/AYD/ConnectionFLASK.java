@@ -10,6 +10,8 @@
  * and open the template in the editor.
  */
 package AYD;
+
+import org.junit.Assert;
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -22,15 +24,31 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 
 public class ConnectionFLASK {
-	
-	public static String ActiveUser="staff@gmail.com"; 
-	public static String Categoria = "general";
-        public static String sender="staff@gmail.com";
-	public static ArrayList<String> bitacora = new ArrayList<String>();
+
+    public static String ActiveUser = "staff@gmail.com";
+    public static String Categoria = "general";
+    public static String sender = "staff@gmail.com";
 
     public static OkHttpClient webClient = new OkHttpClient();
-          
+
+    public static void probarConexion(String respuesta){
+        try {
+            Assert.assertNotNull("El webservice no esta corriendo o no tiene conexion activa.", respuesta);
+        } catch (Exception e) {
+        }
+    }
     
+    public static void testMandarCorreo(String respuesta) {
+        try {
+            Assert.assertFalse("El correo del recipiente no existe.", respuesta.equalsIgnoreCase("Error"));
+        } catch (Exception e) {
+        }
+    }
+
+    public static void testEliminarCorreo(String respuesta) {
+        Assert.assertTrue("Error eliminando el correo, el resultado del webservice no fue exitoso." + respuesta, respuesta.equalsIgnoreCase("Exito"));
+    }
+
     public static void mandarCorreo(String sender, String receiver, String texto) {
         RequestBody formBody = new FormEncodingBuilder()
                 .add("sender", sender)
@@ -39,17 +57,20 @@ public class ConnectionFLASK {
                 .build();
         String r = getString("mandarCorreo", formBody);
         System.out.println("rMandarCorreo- " + r);
+        testMandarCorreo(r);
     }
-    public static void eliminarCorreo(String sender, String receiver, String cat,String index) {
-     RequestBody formBody = new FormEncodingBuilder()
-             .add("sender", sender)
-             .add("categoria", cat)
-             .add("receiver", receiver)
-             .add("index", index)
-             .build();
-     String r = getString("eliminarCorreo", formBody);
-     System.out.println("eliminarCorreo- " + r);
- }
+
+    public static void eliminarCorreo(String sender, String receiver, String cat, String index) {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("sender", sender)
+                .add("categoria", cat)
+                .add("receiver", receiver)
+                .add("index", index)
+                .build();
+        String r = getString("eliminarCorreo", formBody);
+        System.out.println("eliminarCorreo- " + r);
+        testEliminarCorreo(r);
+    }
 
     public static String getString(String metodo, RequestBody formBody) {
 
