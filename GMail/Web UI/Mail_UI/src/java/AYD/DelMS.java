@@ -35,7 +35,7 @@ public class DelMS extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
            String index = request.getParameter("index");
-           AppReportesEDD.eliminarCorreo(AppReportesEDD.sender,AppReportesEDD.ActiveUser, AppReportesEDD.Categoria, index);
+           ConnectionFLASK.eliminarCorreo(ConnectionFLASK.sender,ConnectionFLASK.ActiveUser, ConnectionFLASK.Categoria, index);
            try{
            response.sendRedirect("delete.jsp");
            }catch(Exception o){

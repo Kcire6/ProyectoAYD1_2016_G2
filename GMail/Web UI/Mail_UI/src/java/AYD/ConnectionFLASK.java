@@ -21,7 +21,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
-public class AppReportesEDD {
+public class ConnectionFLASK {
 	
 	public static String ActiveUser="staff@gmail.com"; 
 	public static String Categoria = "general";
@@ -60,9 +60,9 @@ public class AppReportesEDD {
             String response_string = response.body().string();//y este seria el string de las respuesta
             return response_string;
         } catch (MalformedURLException ex) {
-            java.util.logging.Logger.getLogger(AYD.AppReportesEDD.class.getName()).log(Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AYD.ConnectionFLASK.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
-            java.util.logging.Logger.getLogger(AYD.AppReportesEDD.class.getName()).log(Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AYD.ConnectionFLASK.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

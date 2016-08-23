@@ -38,7 +38,7 @@ public class SendMess extends HttpServlet {
            String messa = request.getParameter("mensaje");
            
            try{
-               AppReportesEDD.mandarCorreo(AppReportesEDD.ActiveUser, reci, messa);
+               ConnectionFLASK.mandarCorreo(ConnectionFLASK.ActiveUser, reci, messa);
                response.sendRedirect("index.jsp");
                        
            }catch(Exception o){
