@@ -71,7 +71,17 @@ public class ConnectionFLASK {
         System.out.println("eliminarCorreo- " + r);
         testEliminarCorreo(r);
     }
-
+    
+        public static void setFirma(String user,String firma) {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("user", user)
+                .add("firma",firma)
+                .build();
+        String r = getString("setFirma", formBody);
+        System.out.println("rsetFirma- "+ r);
+    }
+    
+    
     public static String getString(String metodo, RequestBody formBody) {
 
         try {
