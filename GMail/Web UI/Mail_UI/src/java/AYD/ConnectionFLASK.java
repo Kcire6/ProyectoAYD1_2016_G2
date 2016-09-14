@@ -31,13 +31,13 @@ public class ConnectionFLASK {
 
     public static OkHttpClient webClient = new OkHttpClient();
 
-    public static void probarConexion(String respuesta){
+    public static void probarConexion(String respuesta) {
         try {
             Assert.assertNotNull("El webservice no esta corriendo o no tiene conexion activa.", respuesta);
         } catch (Exception e) {
         }
     }
-    
+
     public static void testMandarCorreo(String respuesta) {
         try {
             Assert.assertFalse("El correo del recipiente no existe.", respuesta.equalsIgnoreCase("Error"));
@@ -70,6 +70,14 @@ public class ConnectionFLASK {
         String r = getString("eliminarCorreo", formBody);
         System.out.println("eliminarCorreo- " + r);
         testEliminarCorreo(r);
+    }
+
+    public static ArrayList<String> GetCategorias(String user) {
+        return null;
+    }
+
+    static String addCategoria(String user, String categoria) {
+        return "";
     }
 
     public static String getString(String metodo, RequestBody formBody) {

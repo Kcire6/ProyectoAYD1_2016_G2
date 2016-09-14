@@ -6,6 +6,7 @@
 package AYD;
 
 import com.squareup.okhttp.RequestBody;
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -18,22 +19,22 @@ import static org.junit.Assert.*;
  * @author Mac
  */
 public class ConnectionFLASKTest {
-    
+
     public ConnectionFLASKTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -49,5 +50,26 @@ public class ConnectionFLASKTest {
         String result = ConnectionFLASK.getString(metodo, formBody);
         assertNotNull(result);
     }
-    
+
+    @Test
+    public void testGetCategorias() {
+        System.out.println("getCategorias");
+        String user = "staff@gmail.com";
+        ArrayList<String> resultado = ConnectionFLASK.GetCategorias(user);
+        assertTrue(resultado.size() >= 1);
+        assertTrue(resultado.get(1).equalsIgnoreCase("general"));
+    }
+
+    @Test
+    public void testAddCategoria() {
+        System.out.println("addCategoria");
+        String user = "staff@gmail.com";
+        String categoria = "nueva";
+        ArrayList<String> resultado1 = ConnectionFLASK.GetCategorias(user);
+        String result = ConnectionFLASK.addCategoria(user, categoria);
+        assertTrue(result.equalsIgnoreCase("Exito"));
+        ArrayList<String> resultado2 = ConnectionFLASK.GetCategorias(user);
+        assertEquals(resultado1.size(), resultado2.size() - 1);
+    }
+
 }
