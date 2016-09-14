@@ -8,13 +8,13 @@ app = Flask("AYD_PROYECTO")
         
 class Usuario():
     def __init__(self, password, correo, nombre):
-        self.nombre = nombre
-        self.password = password
-        self.correo = correo
-		self.firma = ""
+	self.nombre = nombre
+	self.password = password
+	self.correo = correo
+	self.firma = ""
 		
 	def setFirma(self, firma):
-		self.firma = firma
+	self.firma = firma
             
 class UsuarioDrop():
     def __init__(self, password, correo):
