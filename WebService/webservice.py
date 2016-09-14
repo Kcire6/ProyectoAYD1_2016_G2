@@ -11,6 +11,10 @@ class Usuario():
         self.nombre = nombre
         self.password = password
         self.correo = correo
+		self.firma = ""
+		
+	def setFirma(self, firma):
+		self.firma = firma
             
 class UsuarioDrop():
     def __init__(self, password, correo):
@@ -1141,6 +1145,7 @@ def mandarCorreo():
     receive = str(request.form['receiver'])
     texto = str(request.form['texto'])
     sender = matrizGmail.buscarConString(send)
+	texto = texto + "\n" + sender.data.firma 
     receiver = matrizGmail.buscarConString(receive)
     if sender != None and receiver != None:
         receiver.agregarCorreo(sender.data.correo, texto, "general")
