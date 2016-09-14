@@ -1178,6 +1178,19 @@ def eliminarCorreo():
             return "Error3" #El receiver no existe
     else:
         return "Error4" #El sender no existe
+
+@app.route('/setFirma',methods=['POST'])
+def setFirma():	
+	usuario = str(request.form['user'])
+	firma = str(request.form['firma'])
+	receiver = matrizGmail.buscarConString(usuario)
+	if receiver != None:
+		receiver.data.setFirma(firma)
+		return receiver.data.firma
+	else:
+		return "Error" #No existe el usuario
+
+	
 		
 if __name__ == "__main__":
   app.run(debug=True, host='0.0.0.0')
