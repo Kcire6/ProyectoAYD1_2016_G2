@@ -7,7 +7,7 @@ app = Flask("AYD_PROYECTO")
 #-----------------------------------------------CLASES QUE NO SON ESTRUCTURAS EMPIEZA
         
 class Usuario():
-    def __init__(self, password, correo, nombre):
+	def __init__(self, password, correo, nombre):
 		self.nombre = nombre
 		self.password = password
 		self.correo = correo
@@ -1140,18 +1140,17 @@ matrizGmail.insertar("s", "gmail.com", userDropBox, "staff@gmail.com")
 #-------------------------------------Mandar correo
 @app.route('/mandarCorreo',methods=['POST']) 
 def mandarCorreo():
-
-    send = str(request.form['sender'])
-    receive = str(request.form['receiver'])
-    texto = str(request.form['texto'])
-    sender = matrizGmail.buscarConString(send)
+	send = str(request.form['sender'])
+	receive = str(request.form['receiver'])
+	texto = str(request.form['texto'])
+	sender = matrizGmail.buscarConString(send)
 	texto = texto + "\n" + sender.data.firma 
-    receiver = matrizGmail.buscarConString(receive)
-    if sender != None and receiver != None:
-        receiver.agregarCorreo(sender.data.correo, texto, "general")
-        return "Exito"
-    else:
-        return "Error" #El correo del recipiente no existe.
+	receiver = matrizGmail.buscarConString(receive)
+	if sender != None and receiver != None:
+		receiver.agregarCorreo(sender.data.correo, texto, "general")
+		return "Exito"
+	else:
+		return "Error" #El correo del recipiente no existe.
 		
 #------------------------------------Eliminar correo
 @app.route('/eliminarCorreo',methods=['POST']) 
