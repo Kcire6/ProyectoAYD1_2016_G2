@@ -73,11 +73,27 @@ public class ConnectionFLASK {
     }
 
     public static ArrayList<String> GetCategorias(String user) {
-        return null;
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("receiver", user)
+                .build();
+        String r = getString("GetCategorias", formBody);
+        String[] aux = r.split(",,,");
+        ArrayList<String> aux1 = new ArrayList<String>();
+        for(int i = 0; i < aux.length;i++){
+            if(!aux[i].equals("")){
+                aux1.add(aux[i]);
+            }
+        }
+        return aux1;
     }
 
-    static String addCategoria(String user, String categoria) {
-        return "";
+    public static void addCategoria(String user, String categoria) {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("user", user)
+                .add("categoria", categoria)
+                .build();
+        String r = getString("addCategoria", formBody);
+        //System.out.println("raddCategoria- " + r);
     }
 
     public static String getString(String metodo, RequestBody formBody) {

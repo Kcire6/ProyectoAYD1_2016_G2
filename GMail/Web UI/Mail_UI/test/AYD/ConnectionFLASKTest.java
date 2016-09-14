@@ -66,10 +66,11 @@ public class ConnectionFLASKTest {
         String user = "staff@gmail.com";
         String categoria = "nueva";
         ArrayList<String> resultado1 = ConnectionFLASK.GetCategorias(user);
-        String result = ConnectionFLASK.addCategoria(user, categoria);
-        assertTrue(result.equalsIgnoreCase("Exito"));
+        ConnectionFLASK.addCategoria(user, categoria);
         ArrayList<String> resultado2 = ConnectionFLASK.GetCategorias(user);
         assertEquals(resultado1.size(), resultado2.size() - 1);
     }
+    
+    
 
 }

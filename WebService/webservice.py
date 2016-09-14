@@ -1178,6 +1178,25 @@ def eliminarCorreo():
             return "Error3" #El receiver no existe
     else:
         return "Error4" #El sender no existe
+
+
+@app.route('/GetCategorias',methods=['POST']) 
+def getCategorias():
+    receive = str(request.form['receiver'])
+    receiver = matrizGmail.buscarConString(receive)
+    a = matrizGmail.buscarConString(receiver.data.correo).correos.getAll()
+    return a
+
+@app.route('/addCategoria',methods=['POST']) 
+def addCategoria():
+    user = str(request.form['user'])
+    categoria = str(request.form['categoria'])
+    receiver = matrizGmail.buscarConString(user)
+    if receiver != None:
+        matrizGmail.buscarConString(receiver.data.correo).correos.insertar(categoria, categoria)
+        return str(matrizGmail.buscarConString(receiver.data.correo).correos.len);
+    else:
+        return "Error" #No existe el usuario
 		
 if __name__ == "__main__":
   app.run(debug=True, host='0.0.0.0')
