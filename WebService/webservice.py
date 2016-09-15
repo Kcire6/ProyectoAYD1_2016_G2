@@ -1193,8 +1193,6 @@ def setFirma():
 		return receiver.data.firma
 	else:
 		return "Error" #No existe el usuario
-
-	
 		
 if __name__ == "__main__":
   app.run(debug=True, host='0.0.0.0')
