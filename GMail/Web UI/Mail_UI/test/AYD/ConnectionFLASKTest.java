@@ -57,7 +57,7 @@ public class ConnectionFLASKTest {
         String user = "staff@gmail.com";
         ArrayList<String> resultado = ConnectionFLASK.GetCategorias(user);
         assertTrue(resultado.size() >= 1);
-        assertTrue(resultado.get(1).equalsIgnoreCase("general"));
+        assertTrue(resultado.get(0).equalsIgnoreCase("general"));
     }
 
     @Test
@@ -71,6 +71,24 @@ public class ConnectionFLASKTest {
         assertEquals(resultado1.size(), resultado2.size() - 1);
     }
     
+    @Test
+    public void testGetSenders(){
+        System.out.println("getSenders");
+        ArrayList<String> resultado1 = AYD.ConnectionFLASK.getSenders("staff@gmail.com", "general");
+        AYD.ConnectionFLASK.mandarCorreo("staff@gmail.com", "staff@gmail.com", "test1");
+        ArrayList<String> resultado2 = AYD.ConnectionFLASK.getSenders("staff@gmail.com", "general");
+        assertEquals(resultado1.size(), resultado2.size() - 1);
+    }
     
-
+    @Test
+    public void testGetTextosDeUnSender(){
+        System.out.println("getTextosDeUnSender");
+//        AYD.ConnectionFLASK.mandarCorreo("staff@gmail.com", "staff@gmail.com", "test1");
+        AYD.ConnectionFLASK.mandarCorreo("staff@gmail.com", "staff@gmail.com", "test2");
+        ArrayList<String> resultados = AYD.ConnectionFLASK.getTextosDeUnSender("staff@gmail.com", "staff@gmail.com", "general");
+        assertTrue(resultados.get(0).equals("test1"));
+        assertTrue(resultados.get(1).equals("test2"));
+    }
+    
+    
 }
