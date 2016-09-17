@@ -1102,14 +1102,14 @@ class ABB:
                     aux.izq = target.izq
                     aux.der = target.der
                     target.der = target.izq = None
-            # if (self.antTarget != None):
-            #     if (self.antTarget.comparable < aux.comparable):
+            if (self.antTarget != None):
+                if (self.antTarget.comparable < aux.comparable):
             
-            #         self.antTarget.der = aux
-            #     else:
-            #         self.antTarget.izq = aux
-            # else:
-            #     self.raiz = aux
+                    self.antTarget.der = aux
+                else:
+                    self.antTarget.izq = aux
+            else:
+                self.raiz = aux
             
 
     def buscarEliminar(self, comparable, raiz):
@@ -1183,7 +1183,6 @@ def eliminarCorreo():
     else:
         return "Error4" #El sender no existe
 
-<<<<<<< HEAD
 @app.route('/setFirma',methods=['POST'])
 def setFirma():	
 	usuario = str(request.form['user'])
@@ -1191,137 +1190,9 @@ def setFirma():
 	receiver = matrizGmail.buscarConString(usuario)
 	if receiver != None:
 		receiver.data.setFirma(firma)
-		return receiver.data.firma
+		return "exito"
 	else:
 		return "Error" #No existe el usuario
-=======
-
-@app.route('/GetCategorias',methods=['POST']) 
-def getCategorias():
-    receive = str(request.form['receiver'])
-    receiver = matrizGmail.buscarConString(receive)
-    a = matrizGmail.buscarConString(receiver.data.correo).correos.getAll()
-    return a
-
-@app.route('/addCategoria',methods=['POST']) 
-def addCategoria():
-    user = str(request.form['user'])
-    categoria = str(request.form['categoria'])
-    receiver = matrizGmail.buscarConString(user)
-    if receiver != None:
-        matrizGmail.buscarConString(receiver.data.correo).correos.insertar(categoria, categoria)
-        return str(matrizGmail.buscarConString(receiver.data.correo).correos.len);
-    else:
-        return "Error" #No existe el usuario
->>>>>>> refs/remotes/origin/Inbox
 		
-@app.route('/getSenders',methods=['POST']) 
-def getSenders():
-    receive = str(request.form['receiver'])
-    cat = str(request.form['cat'])
-    receiver = matrizGmail.buscarConString(receive)    
-    if receiver != None:
-        a = matrizGmail.buscarConString(receiver.data.correo).correos.buscar(cat)
-        if a != None:
-            return a.senders.inorden()
-        else:
-            return "Error2" #No existe la categoria
-    else:
-        return "Error" #No existe el usuario
-
-@app.route('/moverCorreoDeCategoria', methods = ['POST'])
-def moverCorreoDeCategoria():
-    sender = str(request.form['sender'])
-    cat1 = str(request.form['cat1']) #Categoria Original
-    cat2 = str(request.form['cat2']) #Categoria Destino
-    textoIndex = str(request.form['textoIndex'])
-    user = str(request.form['user'])
-    receiver = matrizGmail.buscarConString(user)
-    if receiver != None and sender != None:
-        a = receiver.correos.buscar(cat1) #Verifica si la primer categoria existe y la guarda en 'a'
-        if a != None:
-            b = receiver.correos.buscar(cat2) #Verifica si la segunda categoria existe y la guarda en 'b'
-            if b != None:
-                c = a.senders.buscar(sender) 
-                if c != None:
-                # a = nodo de la primer categoria
-                # b = nodo de la segunda categoria
-                # c = nodo del sender
-                    d = c.textos.buscarConIndex(textoIndex)
-                    # d = nodo del texto que se quiere mover
-                    if d != None:
-                        receiver.agregarCorreo(sender, d.valor, cat2)
-                        c.textos.eliminar(textoIndex)
-                        if c.textos.len == 0:
-                            a.senders.eliminar(send)
-                            return "Exito, hay que borrar el nodo"
-                        return "Exito"
-                    else:
-                        return "Error5" #El index no existe
-                    return "Exito"
-                else:
-                    return "Error4" #El sender no ha mandado correos al receiver
-            else:
-                return "Error3" #No existe la categoria de destino
-        else:       
-            return "Error2" #No existe la categoria de origen
-    else:
-        return "Error" #No existe alguno de los dos correos
-
-@app.route('/eliminarCategoria',methods=['POST']) 
-def eliminarCategoria():
-    use = str(request.form['user'])
-    categoria = str(request.form['cat'])
-    if categoria != "general":
-        user = matrizGmail.buscarConString(use)
-        if user != None:
-            b = user.correos.buscar(categoria)
-            w = user.correos.buscar("general")
-            if b != None:
-                inordenText = str(b.senders.inorden())
-                correos = inordenText.split(",")
-                for x in range(1,len(correos)):
-                    a = correos[x]
-                    senderActual = b.senders.buscar(correos[x])
-                    cantCorreos = senderActual.textos.len
-                    for xw in range(1,(cantCorreos+1)):
-                        a = user.correos.buscar("general")
-                        #b = user.corros.buscar(categoria)
-                        #senderActual = el nodo del sender = c
-                        #x = textoIndex
-                        d = senderActual.textos.buscarConIndex(xw)
-                        user.agregarCorreo(correos[x], d.valor, "general")
-                    cantCorreos = senderActual.textos.len
-                user.correos.eliminar(user.correos.buscarIndex(categoria))
-                return "Exito"
-            else:
-                return "Error2" #La categoria seleccionada no existe
-        else:
-            return "Error1" #No existe el usuario
-    else:        
-        return "Error" #No se puede eliminar la categoria de general
-
-
-@app.route('/getTextosDeUnSender',methods=['POST']) 
-def getTextosDeUnSender():
-    send = str(request.form['sender'])
-    receive = str(request.form['receiver'])
-    cat = str(request.form['categoria'])
-    sender = matrizGmail.buscarConString(send)
-    receiver = matrizGmail.buscarConString(receive)
-    if sender != None:
-        a = matrizGmail.buscarConString(receiver.data.correo).correos.buscar(cat)
-        if a != None:
-            b = a.senders.buscar(sender.data.correo)
-            if b != None:
-                return b.textos.getAll()
-            else:
-                return "Error3" #El receiver no tiene correos del sender en esta categoria
-        else:
-            return "Error2" #El receiver no tiene una categoria que se llame como el parametro
-    else:
-        return "Error" #El correo sender no existe
-
-
 if __name__ == "__main__":
   app.run(debug=True, host='0.0.0.0')

@@ -71,18 +71,18 @@ public class ConnectionFLASK {
         System.out.println("eliminarCorreo- " + r);
         testEliminarCorreo(r);
     }
-<<<<<<< HEAD
+
     
-        public static void setFirma(String user,String firma) {
+        public static String setFirma(String user,String firma) {
         RequestBody formBody = new FormEncodingBuilder()
                 .add("user", user)
                 .add("firma",firma)
                 .build();
         String r = getString("setFirma", formBody);
         System.out.println("rsetFirma- "+ r);
+        return r;
     }
     
-=======
 
     public static ArrayList<String> GetCategorias(String user) {
         RequestBody formBody = new FormEncodingBuilder()
@@ -147,8 +147,6 @@ public class ConnectionFLASK {
 
         return Tsends;
     }
-
->>>>>>> refs/remotes/origin/Inbox
     public static String getString(String metodo, RequestBody formBody) {
 
         try {

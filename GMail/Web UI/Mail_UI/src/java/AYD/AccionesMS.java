@@ -39,7 +39,7 @@ public class AccionesMS extends HttpServlet {
 
             if (resultado.equals("DELETE")) {
                 response.sendRedirect("delete.jsp");
-<<<<<<< HEAD
+
             } else if (resultado.equals("FIRMA")) {
                 response.sendRedirect("Firma.jsp");
             } else if (resultado.equals("ASIGNAR FIRMA")) {
@@ -51,12 +51,12 @@ public class AccionesMS extends HttpServlet {
                 } catch (Exception o) {
 
                 }
-=======
+
             } else if (resultado.equals("MAIN")) {
                 response.sendRedirect("MainMenu.jsp?user=" + ConnectionFLASK.ActiveUser);
             } else if (resultado.equals("MOVE")) {
                 response.sendRedirect("MCAT.jsp");
->>>>>>> refs/remotes/origin/Inbox
+
             }
         } finally {
             out.close();

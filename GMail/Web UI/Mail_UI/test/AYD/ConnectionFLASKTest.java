@@ -112,8 +112,9 @@ public class ConnectionFLASKTest {
         System.out.println("setFirma");
         String user = "";
         String firma = "";
-        ConnectionFLASK.setFirma(user, firma);
-        // TODO review the generated test code and remove the default call to fail.
+        String expResutl = "exito";
+        String result = ConnectionFLASK.setFirma(user, firma);
+        assertEquals(expResutl, result);
         fail("The test case is a prototype.");
     }
 
