@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Erick
  */
-@WebServlet(name = "AccionesMS", urlPatterns = {"/AccionesMS"})
-public class AccionesMS extends HttpServlet {
+@WebServlet(name = "DirInbox", urlPatterns = {"/DirInbox"})
+public class DirInbox extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,15 +34,12 @@ public class AccionesMS extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            String resultado = request.getParameter("boton");
-            String sender = request.getParameter(resultado);
-
-            if (resultado.equals("DELETE")) {
-                response.sendRedirect("delete.jsp");
-            } else if (resultado.equals("MAIN")) {
-                response.sendRedirect("MainMenu.jsp?user=" + ConnectionFLASK.ActiveUser);
-            } else if (resultado.equals("MOVE")) {
-                response.sendRedirect("MCAT.jsp");
+            String categoria = request.getParameter("categoria");
+            String boton = request.getParameter("boton");
+            if(boton.equals("GO TO INBOX")){
+             response.sendRedirect("Inbox.jsp?categoria="+categoria);
+            }else if(boton.equals("EDIT CATEGORIES")){
+                response.sendRedirect("mngCat.jsp");
             }
         } finally {
             out.close();

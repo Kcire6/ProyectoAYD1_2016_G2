@@ -79,8 +79,8 @@ public class ConnectionFLASK {
         String r = getString("GetCategorias", formBody);
         String[] aux = r.split(",,,");
         ArrayList<String> aux1 = new ArrayList<String>();
-        for(int i = 0; i < aux.length;i++){
-            if(!aux[i].equals("")){
+        for (int i = 0; i < aux.length; i++) {
+            if (!aux[i].equals("")) {
                 aux1.add(aux[i]);
             }
         }
@@ -94,6 +94,46 @@ public class ConnectionFLASK {
                 .build();
         String r = getString("addCategoria", formBody);
         //System.out.println("raddCategoria- " + r);
+    }
+
+    public static ArrayList<String> getSenders(String receiver, String cat) {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("receiver", receiver)
+                .add("cat", cat)
+                .build();
+        String r = getString("getSenders", formBody);
+        ArrayList<String> sends = new ArrayList<String>();
+        if (!r.equals("Error")) {
+            String[] aux = r.split(",");
+            for (int i = 0; i < aux.length; i++) {
+                if (aux[i].equals("Error")) {
+                    i = aux.length;
+                } else if (!aux[i].equals(" ")) {
+                    sends.add(aux[i]);
+                }
+            }
+        }
+        return sends;
+    }
+
+    public static ArrayList<String> getTextosDeUnSender(String receiver, String sender, String categoria) {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("receiver", receiver)
+                .add("sender", sender)
+                .add("categoria", categoria)
+                .build();
+        String r = getString("getTextosDeUnSender", formBody);
+        ArrayList<String> Tsends = new ArrayList<String>();
+        String[] aux = r.split(",,,");
+        for (int i = 0; i < aux.length; i++) {
+            if (aux[i].equals("Error3")) {
+                i = aux.length;
+            } else if (!aux[i].equals("")) {
+                Tsends.add(aux[i]);
+            }
+        }
+
+        return Tsends;
     }
 
     public static String getString(String metodo, RequestBody formBody) {
@@ -110,6 +150,27 @@ public class ConnectionFLASK {
             java.util.logging.Logger.getLogger(AYD.ConnectionFLASK.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    public static void eliminarCategoria(String user, String categoria) {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("user", user)
+                .add("cat", categoria)
+                .build();
+        String r = getString("eliminarCategoria", formBody);
+        //System.out.println("reliminarCategoria- " + r);
+    }
+
+    public static void MoveMSS(String sender, String catO, String catD, String index, String user) {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("sender", sender)
+                .add("cat1", catO)
+                .add("cat2", catD)
+                .add("textoIndex", index)
+                .add("user", user)
+                .build();
+        String r = getString("moverCorreoDeCategoria", formBody);
+        //System.out.println("raddCategoria- " + r);
     }
 
 }

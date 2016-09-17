@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Erick
  */
-@WebServlet(name = "AccionesMS", urlPatterns = {"/AccionesMS"})
-public class AccionesMS extends HttpServlet {
+@WebServlet(name = "AccionesEDC", urlPatterns = {"/AccionesEDC"})
+public class AccionesEDC extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,16 +34,19 @@ public class AccionesMS extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            String resultado = request.getParameter("boton");
-            String sender = request.getParameter(resultado);
-
-            if (resultado.equals("DELETE")) {
-                response.sendRedirect("delete.jsp");
-            } else if (resultado.equals("MAIN")) {
-                response.sendRedirect("MainMenu.jsp?user=" + ConnectionFLASK.ActiveUser);
-            } else if (resultado.equals("MOVE")) {
-                response.sendRedirect("MCAT.jsp");
+            
+            String respuesta = request.getParameter("boton");
+            String cat = request.getParameter("categoria");
+            String ncat= request.getParameter("ncategoria");
+            if(respuesta.equals("REMOVE")){
+                ConnectionFLASK.eliminarCategoria(ConnectionFLASK.ActiveUser, cat);
+                response.sendRedirect("Categorias.jsp");
+            }else if(respuesta.equals("ADD")){
+                ConnectionFLASK.addCategoria(ConnectionFLASK.ActiveUser, ncat);
+            response.sendRedirect("Categorias.jsp");
             }
+                
+            
         } finally {
             out.close();
         }
