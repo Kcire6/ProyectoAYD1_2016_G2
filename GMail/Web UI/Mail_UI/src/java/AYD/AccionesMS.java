@@ -39,6 +39,17 @@ public class AccionesMS extends HttpServlet {
 
             if (resultado.equals("DELETE")) {
                 response.sendRedirect("delete.jsp");
+            } else if (resultado.equals("FIRMA")) {
+                response.sendRedirect("Firma.jsp");
+            } else if (resultado.equals("ASIGNAR FIRMA")) {
+                try {
+
+                    String firma = request.getParameter("textofirma");
+                    ConnectionFLASK.setFirma(ConnectionFLASK.ActiveUser, firma);
+                    response.sendRedirect("index.jsp");
+                } catch (Exception o) {
+
+                }
             }
         } finally {
             out.close();

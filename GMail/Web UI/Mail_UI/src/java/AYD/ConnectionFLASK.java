@@ -81,7 +81,6 @@ public class ConnectionFLASK {
         System.out.println("rsetFirma- "+ r);
     }
     
-    
     public static String getString(String metodo, RequestBody formBody) {
 
         try {
