@@ -115,7 +115,6 @@ public class ConnectionFLASKTest {
         String expResutl = "exito";
         String result = ConnectionFLASK.setFirma(user, firma);
         assertEquals(expResutl, result);
-        fail("The test case is a prototype.");
     }
 
     /**
