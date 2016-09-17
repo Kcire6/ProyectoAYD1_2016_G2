@@ -7,10 +7,14 @@ app = Flask("AYD_PROYECTO")
 #-----------------------------------------------CLASES QUE NO SON ESTRUCTURAS EMPIEZA
         
 class Usuario():
-    def __init__(self, password, correo, nombre):
-        self.nombre = nombre
-        self.password = password
-        self.correo = correo
+	def __init__(self, password, correo, nombre):
+		self.nombre = nombre
+		self.password = password
+		self.correo = correo
+		self.firma = ""
+		
+	def setFirma(self, firma):
+		self.firma = firma
             
 class UsuarioDrop():
     def __init__(self, password, correo):
@@ -1136,17 +1140,17 @@ matrizGmail.insertar("s", "gmail.com", userDropBox, "staff@gmail.com")
 #-------------------------------------Mandar correo
 @app.route('/mandarCorreo',methods=['POST']) 
 def mandarCorreo():
-
-    send = str(request.form['sender'])
-    receive = str(request.form['receiver'])
-    texto = str(request.form['texto'])
-    sender = matrizGmail.buscarConString(send)
-    receiver = matrizGmail.buscarConString(receive)
-    if sender != None and receiver != None:
-        receiver.agregarCorreo(sender.data.correo, texto, "general")
-        return "Exito"
-    else:
-        return "Error" #El correo del recipiente no existe.
+	send = str(request.form['sender'])
+	receive = str(request.form['receiver'])
+	texto = str(request.form['texto'])
+	sender = matrizGmail.buscarConString(send)
+	texto = texto + "\n" + sender.data.firma 
+	receiver = matrizGmail.buscarConString(receive)
+	if sender != None and receiver != None:
+		receiver.agregarCorreo(sender.data.correo, texto, "general")
+		return "Exito"
+	else:
+		return "Error" #El correo del recipiente no existe.
 		
 #------------------------------------Eliminar correo
 @app.route('/eliminarCorreo',methods=['POST']) 
@@ -1178,6 +1182,17 @@ def eliminarCorreo():
             return "Error3" #El receiver no existe
     else:
         return "Error4" #El sender no existe
+
+@app.route('/setFirma',methods=['POST'])
+def setFirma():	
+	usuario = str(request.form['user'])
+	firma = str(request.form['firma'])
+	receiver = matrizGmail.buscarConString(usuario)
+	if receiver != None:
+		receiver.data.setFirma(firma)
+		return receiver.data.firma
+	else:
+		return "Error" #No existe el usuario
 		
 if __name__ == "__main__":
   app.run(debug=True, host='0.0.0.0')

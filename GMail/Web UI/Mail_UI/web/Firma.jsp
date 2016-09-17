@@ -1,7 +1,7 @@
 <%-- 
-    Document   : SendM
-    Created on : 10-may-2015, 13:05:56
-    Author     : Erick
+    Document   : Firma
+    Created on : Sep 14, 2016, 11:53:29 PM
+    Author     : happy_000
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>SEND MESSAGE</title>
+        <title>COLOCAR FIRMA</title>
         <style type="text/css">
             .form-style-9{
                 max-width: 450px;
@@ -169,37 +169,21 @@
     <body><form>
             <ul class="form-style-1">
                 <li>
-                    <h1><strong>NEW MESSAGE</strong></h1>
+                    <h1><strong>CONFIGURAR FIRMA</strong></h1>
                 </li>
             </ul>
         </form>
-        <form action="SendMess" method="get" class="form-style-9">
+        <form action="AccionesMS" method="get" class="form-style-9">
             <ul>
                 <li>
-                    <input type="text" name="reci" class="field-style field-split align-left" placeholder="Email" />
+                    <textarea name="textofirma" class="field-style" placeholder="Firma"></textarea>
                 </li>
                 <li>
-                    <textarea name="mensaje" class="field-style" placeholder="Message"></textarea>
-                </li>
-                <li>
-                    <input type="submit" value="SEND MESSAGE" />
+                    <input name="boton" type="submit" value="ASIGNAR FIRMA" />
                 </li>
             </ul>
         </form>
-    </form>
-    <form action="AccionesMS" method="get" class="form-style-9">
-        <ul>
-            <li>
-            <tr> 
-                <td>
-                    <input name="boton" type="submit" value="DELETE" />
-                </td> 
-                <td>
-                    <input name="boton" type="submit" value="FIRMA" />
-                </td> 
-            </tr> 
-            </li>
-        </ul>
     </form>
 </body>
 </html>
+
