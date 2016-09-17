@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Erick
  */
-@WebServlet(name = "AccionesMS", urlPatterns = {"/AccionesMS"})
-public class AccionesMS extends HttpServlet {
+@WebServlet(name = "AccionMCAT", urlPatterns = {"/AccionMCAT"})
+public class AccionMCAT extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,30 +34,12 @@ public class AccionesMS extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            String resultado = request.getParameter("boton");
-            String sender = request.getParameter(resultado);
 
-            if (resultado.equals("DELETE")) {
-                response.sendRedirect("delete.jsp");
-<<<<<<< HEAD
-            } else if (resultado.equals("FIRMA")) {
-                response.sendRedirect("Firma.jsp");
-            } else if (resultado.equals("ASIGNAR FIRMA")) {
-                try {
+            String index = request.getParameter("index");
+            String cat = request.getParameter("categoria");
 
-                    String firma = request.getParameter("textofirma");
-                    ConnectionFLASK.setFirma(ConnectionFLASK.ActiveUser, firma);
-                    response.sendRedirect("index.jsp");
-                } catch (Exception o) {
-
-                }
-=======
-            } else if (resultado.equals("MAIN")) {
-                response.sendRedirect("MainMenu.jsp?user=" + ConnectionFLASK.ActiveUser);
-            } else if (resultado.equals("MOVE")) {
-                response.sendRedirect("MCAT.jsp");
->>>>>>> refs/remotes/origin/Inbox
-            }
+            ConnectionFLASK.MoveMSS(ConnectionFLASK.sender, ConnectionFLASK.Categoria, cat, index, ConnectionFLASK.ActiveUser);
+            response.sendRedirect("InboxMS.jsp?sender=" + ConnectionFLASK.sender);
         } finally {
             out.close();
         }
