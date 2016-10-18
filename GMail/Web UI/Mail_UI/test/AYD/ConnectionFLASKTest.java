@@ -5,6 +5,7 @@
  */
 package AYD;
 
+
 import com.squareup.okhttp.RequestBody;
 import java.util.ArrayList;
 import org.junit.After;
@@ -39,83 +40,6 @@ public class ConnectionFLASKTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of probarConexion method, of class ConnectionFLASK.
-     */
-    @Test
-    public void testProbarConexion() {
-        System.out.println("probarConexion");
-        String respuesta = "";
-        ConnectionFLASK.probarConexion(respuesta);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of testMandarCorreo method, of class ConnectionFLASK.
-     */
-    @Test
-    public void testTestMandarCorreo() {
-        System.out.println("testMandarCorreo");
-        String respuesta = "";
-        ConnectionFLASK.testMandarCorreo(respuesta);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of testEliminarCorreo method, of class ConnectionFLASK.
-     */
-    @Test
-    public void testTestEliminarCorreo() {
-        System.out.println("testEliminarCorreo");
-        String respuesta = "";
-        ConnectionFLASK.testEliminarCorreo(respuesta);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of mandarCorreo method, of class ConnectionFLASK.
-     */
-    @Test
-    public void testMandarCorreo() {
-        System.out.println("mandarCorreo");
-        String sender = "";
-        String receiver = "";
-        String texto = "";
-        ConnectionFLASK.mandarCorreo(sender, receiver, texto);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of eliminarCorreo method, of class ConnectionFLASK.
-     */
-    @Test
-    public void testEliminarCorreo() {
-        System.out.println("eliminarCorreo");
-        String sender = "";
-        String receiver = "";
-        String cat = "";
-        String index = "";
-        ConnectionFLASK.eliminarCorreo(sender, receiver, cat, index);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setFirma method, of class ConnectionFLASK.
-     */
-    @Test
-    public void testSetFirma() {
-        System.out.println("setFirma");
-        String user = "";
-        String firma = "";
-        String expResutl = "exito";
-        String result = ConnectionFLASK.setFirma(user, firma);
-        assertEquals(expResutl, result);
-    }
 
     /**
      * Test of getString method, of class ConnectionFLASK.
@@ -169,6 +93,20 @@ public class ConnectionFLASKTest {
         ArrayList<String> resultados = AYD.ConnectionFLASK.getTextosDeUnSender("staff@gmail.com", "staff@gmail.com", "general");
         assertTrue(resultados.get(0).equals("test1"));
         assertTrue(resultados.get(1).equals("test2"));
+    }
+
+
+     /**
+     * Test of setFirma method, of class ConnectionFLASK.
+     */
+    @Test
+    public void testSetFirma() {
+        System.out.println("setFirma");
+        String user = "staff@gmail.com";
+        String firma = "firma prueba";
+        String expResutl = "exito";
+        String result = ConnectionFLASK.setFirma(user, firma);
+        assertEquals(expResutl, result);
     }
     
     
