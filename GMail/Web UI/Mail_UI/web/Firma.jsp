@@ -179,8 +179,15 @@
                     <textarea name="textofirma" class="field-style" placeholder="Firma"></textarea>
                 </li>
                 <li>
-                    <input name="boton" type="submit" value="ASIGNAR FIRMA" />
-                </li>
+            <tr> 
+                <td>
+                    <input name="boton" type="submit" value="AGREGAR FIRMA" />
+                </td> 
+                <td>
+                    <input name="boton" type="submit" value="SELECCIONAR FIRMA POR DEFECTO" />
+                </td> 
+            </tr> 
+            </li>
             </ul>
         </form>
     </form>

@@ -12,7 +12,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 /**
  *
  * @author Erick
@@ -40,13 +39,39 @@ public class AccionesMS extends HttpServlet {
             if (resultado.equals("DELETE")) {
                 response.sendRedirect("delete.jsp");
 
-            } else if (resultado.equals("FIRMA")) {
+            } else if (resultado.equals("FIRMAS")) {
                 response.sendRedirect("Firma.jsp");
-            } else if (resultado.equals("ASIGNAR FIRMA")) {
+            } else if (resultado.equals("AGREGAR FIRMA")) {
                 try {
 
                     String firma = request.getParameter("textofirma");
+                    ConnectionFLASK.addFirma(ConnectionFLASK.ActiveUser, firma);
+                    response.sendRedirect("index.jsp");
+                } catch (Exception o) {
+
+                }
+
+            } else if (resultado.equals("ASIGNAR")) {
+                try {
+                    String firma = request.getParameter("firma");
+                    System.out.println(firma);
                     ConnectionFLASK.setFirma(ConnectionFLASK.ActiveUser, firma);
+                    response.sendRedirect("index.jsp");
+                } catch (Exception o) {
+
+                }
+
+            } else if (resultado.equals("SELECCIONAR FIRMA POR DEFECTO")) {
+                try {
+                    response.sendRedirect("SetFirma.jsp");
+                } catch (Exception o) {
+
+                }
+
+            } else if (resultado.equals("GET FIRMAS")) {
+                try {
+
+                    ConnectionFLASK.getFirmas(ConnectionFLASK.ActiveUser);
                     response.sendRedirect("index.jsp");
                 } catch (Exception o) {
 
