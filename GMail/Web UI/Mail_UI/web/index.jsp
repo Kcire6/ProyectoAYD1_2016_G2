@@ -1,205 +1,154 @@
 <%-- 
-    Document   : SendM
-    Created on : 10-may-2015, 13:05:56
+    Document   : index
+    Created on : 09-may-2015, 16:59:02
     Author     : Erick
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>SEND MESSAGE</title>
-        <style type="text/css">
-            .form-style-9{
-                max-width: 450px;
-                background: #FAFAFA;
-                padding: 30px;
-                margin: 50px auto;
-                box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.35);
-                border-radius: 10px;
-                border: 6px solid #305A72;
-            }
-            .form-style-9 ul{
-                padding:0;
-                margin:0;
-                list-style:none;
-            }
-            .form-style-9 ul li{
-                display: block;
-                margin-bottom: 10px;
-                min-height: 35px;
-            }
-            .form-style-9 ul li  .field-style{
-                box-sizing: border-box; 
-                -webkit-box-sizing: border-box;
-                -moz-box-sizing: border-box; 
-                padding: 8px;
-                outline: none;
-                border: 1px solid #B0CFE0;
-                -webkit-transition: all 0.30s ease-in-out;
-                -moz-transition: all 0.30s ease-in-out;
-                -ms-transition: all 0.30s ease-in-out;
-                -o-transition: all 0.30s ease-in-out;
+<head>
+<meta charset="utf-8">
+<title>GmailLogIn</title>
+<style type="text/css">
+body {
+background-color: #f4f4f4;
+color: #5a5656;
+font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+font-size: 16px;
+line-height: 1.5em;
+}
+a { text-decoration: none; }
+h1 { font-size: 1em; }
+h1, p {
+margin-bottom: 10px;
+}
+strong {
+font-weight: bold;
+}
+.uppercase { text-transform: uppercase; }
 
-            }.form-style-9 ul li  .field-style:focus{
-                box-shadow: 0 0 5px #B0CFE0;
-                border:1px solid #B0CFE0;
-            }
-            .form-style-9 ul li .field-split{
-                width: 49%;
-            }
-            .form-style-9 ul li .field-full{
-                width: 100%;
-            }
-            .form-style-9 ul li input.align-left{
-                float:left;
-            }
-            .form-style-9 ul li input.align-right{
-                float:right;
-            }
-            .form-style-9 ul li textarea{
-                width: 100%;
-                height: 100px;
-            }
-            .form-style-9 ul li input[type="button"], 
-            .form-style-9 ul li input[type="submit"] {
-                -moz-box-shadow: inset 0px 1px 0px 0px #3985B1;
-                -webkit-box-shadow: inset 0px 1px 0px 0px #3985B1;
-                box-shadow: inset 0px 1px 0px 0px #3985B1;
-                background-color: #216288;
-                border: 1px solid #17445E;
-                display: inline-block;
-                cursor: pointer;
-                color: #FFFFFF;
-                padding: 8px 18px;
-                text-decoration: none;
-                font: 12px Arial, Helvetica, sans-serif;
-            }
-            .form-style-9 ul li input[type="button"]:hover, 
-            .form-style-9 ul li input[type="submit"]:hover {
-                background: linear-gradient(to bottom, #2D77A2 5%, #337DA8 100%);
-                background-color: #28739E;
-            }
-            .form-style-1 {
-                margin:10px auto;
-                max-width: 600px;
-                padding: 20px 12px 10px 20px;
-                font: 26px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-            }
-            .form-style-1 li {
-                padding: 0;
-                display: block;
-                list-style: none;
-                margin: 10px 0 0 0;
-            }
-            .form-style-1 label{
-                margin:0 0 3px 0;
-                padding:0px;
-                display:block;
-                font-weight: bold;
-            }
-            .form-style-1 input[type=text], 
-            .form-style-1 input[type=date],
-            .form-style-1 input[type=datetime],
-            .form-style-1 input[type=number],
-            .form-style-1 input[type=search],
-            .form-style-1 input[type=time],
-            .form-style-1 input[type=url],
-            .form-style-1 input[type=email],
-            textarea, 
-            select{
-                box-sizing: border-box;
-                -webkit-box-sizing: border-box;
-                -moz-box-sizing: border-box;
-                border:1px solid #BEBEBE;
-                padding: 7px;
-                margin:0px;
-                -webkit-transition: all 0.30s ease-in-out;
-                -moz-transition: all 0.30s ease-in-out;
-                -ms-transition: all 0.30s ease-in-out;
-                -o-transition: all 0.30s ease-in-out;
-                outline: none;  
-            }
-            .form-style-1 input[type=text]:focus, 
-            .form-style-1 input[type=date]:focus,
-            .form-style-1 input[type=datetime]:focus,
-            .form-style-1 input[type=number]:focus,
-            .form-style-1 input[type=search]:focus,
-            .form-style-1 input[type=time]:focus,
-            .form-style-1 input[type=url]:focus,
-            .form-style-1 input[type=email]:focus,
-            .form-style-1 textarea:focus, 
-            .form-style-1 select:focus{
-                -moz-box-shadow: 0 0 8px #88D5E9;
-                -webkit-box-shadow: 0 0 8px #88D5E9;
-                box-shadow: 0 0 8px #88D5E9;
-                border: 1px solid #88D5E9;
-            }
-            .form-style-1 .field-divided{
-                width: 49%;
-            }
-
-            .form-style-1 .field-long{
-                width: 100%;
-            }
-            .form-style-1 .field-select{
-                width: 100%;
-            }
-            .form-style-1 .field-textarea{
-                height: 400px;
-            }
-            .form-style-1 input[type=submit], .form-style-1 input[type=button]{
-                background: #4B99AD;
-                padding: 8px 15px 8px 15px;
-                border: none;
-                color: #fff;
-            }
-            .form-style-1 input[type=submit]:hover, .form-style-1 input[type=button]:hover{
-                background: #4691A4;
-                box-shadow:none;
-                -moz-box-shadow:none;
-                -webkit-box-shadow:none;
-            }
-            .form-style-1 .required{
-                color:red;
-            }
-        </style>
-    </head>
-    <body><form>
-            <ul class="form-style-1">
-                <li>
-                    <h1><strong>NEW MESSAGE</strong></h1>
-                </li>
-            </ul>
-        </form>
-        <form action="SendMess" method="get" class="form-style-9">
-            <ul>
-                <li>
-                    <input type="text" name="reci" class="field-style field-split align-left" placeholder="Email" />
-                </li>
-                <li>
-                    <textarea name="mensaje" class="field-style" placeholder="Message"></textarea>
-                </li>
-                <li>
-                    <input type="submit" value="SEND MESSAGE" />
-                </li>
-            </ul>
-        </form>
-    </form>
-    <form action="AccionesMS" method="get" class="form-style-9">
-        <ul>
-            <li>
-            <tr> 
-                <td>
-                    <input name="boton" type="submit" value="DELETE" />
-                </td> 
-                <td>
-                    <input name="boton" type="submit" value="FIRMA" />
-                </td> 
-            </tr> 
-            </li>
-        </ul>
-    </form>
+/* ---------- LOGIN ---------- */
+#login {
+margin: 50px auto;
+width: 300px;
+}
+form fieldset input[type="text"], input[type="password"] {
+background-color: #e5e5e5;
+border: none;
+border-radius: 3px;
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
+color: #5a5656;
+font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+font-size: 14px;
+height: 50px;
+outline: none;
+padding: 0px 10px;
+width: 280px;
+-webkit-appearance:none;
+}
+form fieldset input[type="submit"] {
+background-color: #008dde;
+border: none;
+border-radius: 3px;
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
+color: #f4f4f4;
+cursor: pointer;
+font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+height: 50px;
+text-transform: uppercase;
+width: 300px;
+-webkit-appearance:none;
+}
+form fieldset a {
+color: #5a5656;
+font-size: 10px;
+}
+form fieldset a:hover { text-decoration: underline; }
+.btn-round {
+background-color: #5a5656;
+border-radius: 50%;
+-moz-border-radius: 50%;
+-webkit-border-radius: 50%;
+color: #f4f4f4;
+display: block;
+font-size: 12px;
+height: 50px;
+line-height: 50px;
+margin: 30px 125px;
+text-align: center;
+text-transform: uppercase;
+width: 50px;
+}
+.facebook-before {
+background-color: #0064ab;
+border-radius: 3px 0px 0px 3px;
+-moz-border-radius: 3px 0px 0px 3px;
+-webkit-border-radius: 3px 0px 0px 3px;
+color: #f4f4f4;
+display: block;
+float: left;
+height: 50px;
+line-height: 50px;
+text-align: center;
+width: 50px;
+}
+.facebook {
+background-color: #0079ce;
+border: none;
+border-radius: 0px 3px 3px 0px;
+-moz-border-radius: 0px 3px 3px 0px;
+-webkit-border-radius: 0px 3px 3px 0px;
+color: #f4f4f4;
+cursor: pointer;
+height: 50px;
+text-transform: uppercase;
+width: 250px;
+}
+.twitter-before {
+background-color: #189bcb;
+border-radius: 3px 0px 0px 3px;
+-moz-border-radius: 3px 0px 0px 3px;
+-webkit-border-radius: 3px 0px 0px 3px;
+color: #f4f4f4;
+display: block;
+float: left;
+height: 50px;
+line-height: 50px;
+text-align: center;
+width: 50px;
+}
+.twitter {
+background-color: #1bb2e9;
+border: none;
+border-radius: 0px 3px 3px 0px;
+-moz-border-radius: 0px 3px 3px 0px;
+-webkit-border-radius: 0px 3px 3px 0px;
+color: #f4f4f4;
+cursor: pointer;
+height: 50px;
+text-transform: uppercase;
+width: 250px;
+}
+</style>
+</head>
+<body>
+<div id="login">
+<h1><strong>GmailEDD2015 Login</strong></h1>
+<form action="loginAcc" method="get" border:none>
+<fieldset>
+<p><input type="text" name= "datos" required value="Username" onBlur="if(this.value=='')this.value='Username'" onFocus="if(this.value=='Username')this.value='' "></p>
+<p><input type="password" name= "datos" required value="Password" onBlur="if(this.value=='')this.value='Password'" onFocus="if(this.value=='Password')this.value='' "></p>
+<p><input type="submit" value="Login"></p>
+</fieldset>
+</form>
+<form action="DirCACC" method="get">
+<fieldset>
+<p><input type="submit" value="Create Account"></p>    
+</fieldset>
+</form></div> <!-- end login -->
 </body>
 </html>
+

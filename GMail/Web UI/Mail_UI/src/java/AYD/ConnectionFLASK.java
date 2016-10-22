@@ -184,4 +184,13 @@ public class ConnectionFLASK {
         //System.out.println("raddCategoria- " + r);
     }
 
+        public static String loginGmail(String correo, String pass) {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("correo", correo)
+                .add("password", pass)
+                .build();
+        String r = getString("loginGmail", formBody);
+        return r;
+    }
+    
 }

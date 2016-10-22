@@ -1319,6 +1319,18 @@ def getTextosDeUnSender():
     else:
         return "Error" #El correo sender no existe
 
+@app.route('/loginGmail',methods=['POST']) 
+def loginGmail():
+    correo = str(request.form['correo'])
+    passw = str(request.form['password'])
+    a = matrizGmail.buscarConString(correo)
+    if a == None:
+        return "False"
+    else:
+        if a.data.password == passw:
+            return "True"
+        else:
+            return "False"
 
 if __name__ == "__main__":
   app.run(debug=True, host='0.0.0.0')
