@@ -1,9 +1,26 @@
-__author__ = "G2"
-__date__ = "$Ago 9, 2016 11:41:07 PM$"
+__author__ = "Mac"
+__date__ = "$Apr 9, 2015 11:41:07 PM$"
 
 from flask import Flask, session, request, render_template, jsonify, Response
 
-app = Flask("AYD_PROYECTO")
+app = Flask("EDD_codigo_ejemplo_proyecto1")
+
+
+#-----------------------------------------------GRAPHVIZ
+
+class Nodo():
+    
+    def __init__(self, nombre):
+        self.nombre = nombre
+        self.data = str(nombre) + str("[label = \"") + str(nombre) + "\"" + " ] \n"    
+    
+class Relacion():
+    
+    def __init__(self, nodo1, nodo2):
+        self.data = "\"" + nodo1 + "\"" + " -> " + "\"" + nodo2 + "\"" + "\n"
+        
+#-----------------------------------------------GRAPHVIZ
+        
 #-----------------------------------------------CLASES QUE NO SON ESTRUCTURAS EMPIEZA
         
 class Usuario():
@@ -12,10 +29,28 @@ class Usuario():
 		self.password = password
 		self.correo = correo
 		self.firma = ""
-		
+		self.ListaFirmas = []
+
 	def setFirma(self, firma):
-		self.firma = firma
-            
+		self.firma = firma		
+		
+	def getDFirma(self):
+		frm = self.firma
+		return frm
+		
+	def addFirma(self,firma):
+		self.ListaFirmas.append(firma)
+	
+	def getFirmas(self):
+		y = ""
+		x = 0
+		for x in range(0,len(self.ListaFirmas)):
+			y = y + ",,," + self.ListaFirmas[x] 
+		return y 
+
+	def delFirma(self,firma):
+		self.ListaFirmas.remove(firma)
+		
 class UsuarioDrop():
     def __init__(self, password, correo):
         self.password = password
@@ -24,7 +59,6 @@ class UsuarioDrop():
         self.root = ArbolB(None, None)
         self.archivosRoot = AVL()
 #-----------------------------------------------CLASES QUE NO SON ESTRUCTURAS TERMINA
-
 class nodoListaB():
     
     def __init__(self, comparable):
@@ -142,7 +176,6 @@ class listaB():
     def getLast(self):
         return self.last
         
-		        
 #-----------------------------------------------LISTA SIMPLE EMPIEZA
 class nodoListaSimple():
 
@@ -207,7 +240,9 @@ class listaSimple():
             aux = aux.sig
         codigoTotal = str(self.codigo2)
         return codigoTotal
-       
+
+#-----------------------------------------------LISTA DOBLEMENTE ENLAZADA EMPIEZA
+        
 class nodoLista():
     
     def __init__(self, val, comparable):
@@ -326,7 +361,6 @@ class lista():
         
 
 #-----------------------------------------------LISTA DOBLEMENTE ENLAZADA TERMINA
-
 
 #-----------------------------------------------MATRIZ DISPERSA EMPIEZA
 
@@ -1102,14 +1136,14 @@ class ABB:
                     aux.izq = target.izq
                     aux.der = target.der
                     target.der = target.izq = None
-            # if (self.antTarget != None):
-            #     if (self.antTarget.comparable < aux.comparable):
+            if (self.antTarget != None):
+                if (self.antTarget.comparable < aux.comparable):
             
-            #         self.antTarget.der = aux
-            #     else:
-            #         self.antTarget.izq = aux
-            # else:
-            #     self.raiz = aux
+                    self.antTarget.der = aux
+                else:
+                    self.antTarget.izq = aux
+            else:
+                self.raiz = aux
             
 
     def buscarEliminar(self, comparable, raiz):
@@ -1131,75 +1165,486 @@ class ABB:
             
 #------------------------------------ABB TERMINA
             
+#------------------------------------ARBOL B EMPIEZA
+         
+class itemB:
+    def __init__(self):
+        self.carpetas = ArbolB(None, None)
+        self.archivos = AVL()
+            
+class NodoB:
+    def __init__(self, pk, pLlave, pDato):
+        if pDato == None:
+            self.mK = pk
+            self.mB = 0
+            self.mLlaves = [None for xs in range(2*pk+1)]
+            self.mDatos = [None for xs in range(2*pk+1)]
+            self.mPunteros = [None for xs in range(2*pk+2)]
+            self.numeroDeNodoB = 1
+        else:
+            self.mK = pk
+            self.mLlaves = [None for xs in range(2 * pk + 1)]
+            self.mDatos = [None for xs in range(2 * pk + 1)]
+            self.mPunteros = [None for xs in range((2 * pk) + 2)]
+            self.mB = 1
+            self.mLlaves[0] = pLlave
+            self.mDatos[0] = pDato
+
+    def getDotName(self):
+
+        return str("NodoB" + str(id(self)))
+
+    def toDot(self):
+
+
+        b = ""
+
+        b = b + str(self.getDotName())
+        b = b + str("[label=\"<P0>")
+        for i in range(0, self.mB):
+            b = b + str("|" + str(self.mLlaves[i]))
+            b = b + str("|<P" + str(i + 1) + ">")
+
+
+        b = b + str("\"]\n")
+
+        for i in range(0,(self.mB + 1)):
+
+            if (self.mPunteros[i] != None):
+
+                b = b + str(self.mPunteros[i].toDot())
+                b = b + str(str(self.getDotName()) + ":P" + str(i) + " -> " + str(self.mPunteros[i].getDotName()) + "\n")
+        return str(b)
+
+    def setK(self, mK):
+
+        self.mK = mK
+
+
+    def getK(self):
+
+        return self.mK
+    
+    
+
+
+class SplitInt:
+
+    def __init__(self, pPuntero, pLlave, pDato):
+
+        self.mPuntero = pPuntero
+        self.mLlave = pLlave 
+        self.mDato = pDato
+
+
+    def setPuntero(self, mPuntero):
+
+        self.mPuntero = mPuntero
+
+
+    def getPuntero(self):
+
+        return self.mPuntero
+
+
+    def setLlave(self, mLlave):
+
+        self.mLlave = mLlave
+
+
+    def getLlave(self):
+
+        return self.mLlave
+
+
+    def setDato(self, mDato):
+
+        self.mDato = mDato
+
+
+    def getDato(self):
+
+        return self.mDato
+
+
+
+class LlaveEntero:
+
+    def LlaveEntero(self, pValor):
+
+        self.mLlave = pValor
+
+
+    def getKey():
+
+        return self.mLlave
+
+
+    def igualA(self, pObjeto):
+        if (self.mLlave == (pObjeto.getKey())):
+            return True
+        else:
+            return False
+
+
+    def menorQue(self, pObjeto):
+        if (self.mLlave < int(pObjeto.getKey())):
+            
+            return True
+        else:
+            return False
+
+
+    def mayorQue(self, pObjeto):
+        if (self.mLlave > int(pObjeto.getKey())):
+            
+            return True
+        else:
+            return False
+
+    def menorOIgualQue(self, pObjeto):
+        if (self.mLlave <= int(pObjeto.getKey())):
+            
+            return True
+        else:
+            return False
+
+
+    def mayorOIgualQue(self, pObjeto):
+        if (self.mLlave >= int(pObjeto.getKey())):
+            
+            return True
+        else:
+            return False
+        
+        
+class ArbolB:
+    
+    def __init__(self, k, pRaiz):
+        self.mRaiz = None
+        self.mK = 2
+        self.mAltura = 0
+        if k != None:
+            self.mk = k
+        if pRaiz != None:
+            self.mk = pRaiz.getK()
+            self.mRaiz = pRaiz
+            self.mAltura = 1
+            
+    def toDot(self):
+        
+            b = ""
+            b = str(b) + str("digraph g { \n node [shape=record]\n")
+            if self.mRaiz != None:
+                b = str(b) + str(self.mRaiz.toDot())
+            else:
+                b = str(b) + str("\"Vacio\"")
+            b = b + str("}")
+            return str(b)
+        
+    def insert(self, key, obj):
+        
+            if (self.mAltura == 0):
+            
+                self.mRaiz = NodoB(self.mK, key, obj)
+                self.mAltura = 1
+                return
+            
+
+            splitted = self.insert2(self.mRaiz, key, obj, 1)
+
+            if (splitted != None):
+                ptr = self.mRaiz
+
+                self.mRaiz = NodoB(self.mK, splitted.getLlave(), splitted.getDato())
+                self.mRaiz.mPunteros[0] = ptr
+                self.mRaiz.mPunteros[1] = splitted.getPuntero()
+                self.mAltura = self.mAltura + 1
+                
+    def insert2(self, node, key, obj, level):
+        
+        splitted = None
+        ptr = None
+
+        i = 0
+        while ((i < node.mB) and (key > (node.mLlaves[i]))):
+            i = i + 1
+
+        if ((i < node.mB) and key == (node.mLlaves[i])):
+
+            node.mDatos[i] = obj
+            return None
+
+
+        if (level < self.mAltura):
+
+
+            splitted = self.insert2(node.mPunteros[i], key, obj, level + 1)
+
+            if (splitted == None):
+                return None
+            else:
+
+                key = splitted.mLlave
+                obj = splitted.mDato
+                ptr = splitted.mPuntero
+
+
+
+        i = node.mB - 1
+        while ((i >= 0) and (node.mLlaves[i] == None or key < (node.mLlaves[i]))):
+
+            node.mLlaves[i + 1] = node.mLlaves[i]
+            node.mDatos[i + 1] = node.mDatos[i]
+            node.mPunteros[i + 2] = node.mPunteros[i + 1]
+            i = i - 1
+
+
+        node.mLlaves[i + 1] = key
+        node.mDatos[i + 1] = obj
+        if (splitted != None):
+            node.mPunteros[i + 2] = splitted.mPuntero
+        node.mB = node.mB + 1
+
+        if (node.mB > 2 * self.mK):
+
+
+            newnode = NodoB(self.mK, None, None)
+            newnode.mPunteros[self.mK] = node.mPunteros[node.mB]
+            node.mPunteros[node.mB] = None
+            node.mB = self.mK + 1
+            for i in range (0, (self.mK)):
+                
+                newnode.mLlaves[i] = node.mLlaves[i + node.mB]
+                node.mLlaves[i + node.mB] = None
+                newnode.mDatos[i] = node.mDatos[i + node.mB]
+                node.mDatos[i + node.mB] = None
+                newnode.mPunteros[i] = node.mPunteros[i + node.mB]
+                node.mPunteros[i + node.mB] = None
+
+            node.mB -= 1
+
+            splitted = SplitInt(newnode, node.mLlaves[node.mB], node.mDatos[node.mB])
+            node.mLlaves[node.mB] = None
+            node.mDatos[node.mB] = None
+            newnode.mB = self.mK
+            node.mB = self.mK
+
+            return splitted
+
+
+        return None
+        
+    def search(self, key):
+        
+            return self.search2(key, self.mRaiz)
+        
+
+    def search2(self, key, node):
+
+
+        if ((node == None) or (node.mB < 1)):
+
+            return None
+
+
+        if (key < (node.mLlaves[0])):
+            return self.search2(key, node.mPunteros[0])
+
+        if (key > (node.mLlaves[node.mB - 1])):
+            return self.search2(key, node.mPunteros[node.mB])
+
+        i = 0
+        while ((i < node.mB - 1) and (key > (node.mLlaves[i]))):
+            i+=1
+
+        if (key == (node.mLlaves[i])):
+            return node.mDatos[i]
+
+        return self.search2(key, node.mPunteros[i])
+
+        
+
+    def getAltura(self):
+
+        return self.mAltura
+
+    
+#------------------------------------ARBOL B TERMINA
+
+usuariosDropbox = lista()
+bitaDrop = listaB()
+bitaGM = listaB()
 matrizGmail = matriz()
 listaDominios = []
 listaDominios.append("gmail.com")
 userDropBox = Usuario("correogmail", "staff@gmail.com","staff")
 matrizGmail.insertar("s", "gmail.com", userDropBox, "staff@gmail.com")
+prueba = ABB()
 
-#-------------------------------------Mandar correo
-@app.route('/mandarCorreo',methods=['POST']) 
-def mandarCorreo():
-	send = str(request.form['sender'])
-	receive = str(request.form['receiver'])
-	texto = str(request.form['texto'])
-	sender = matrizGmail.buscarConString(send)
-	texto = texto + "\n" + sender.data.firma 
-	receiver = matrizGmail.buscarConString(receive)
-	if sender != None and receiver != None:
-		receiver.agregarCorreo(sender.data.correo, texto, "general")
-		return "Exito"
-	else:
-		return "Error" #El correo del recipiente no existe.
-		
-#------------------------------------Eliminar correo
-@app.route('/eliminarCorreo',methods=['POST']) 
-def eliminarCorreo():
-    send = str(request.form['sender'])
-    categoria = str(request.form['categoria'])
-    receive = str(request.form['receiver'])
-    sender = matrizGmail.buscarConString(send)
-    receiver = matrizGmail.buscarConString(receive)
-    index = str(request.form['index'])
-    
-    if sender != None:
-        a = matrizGmail.buscarConString(receiver.data.correo)
-        if a != None:
-            b = a.correos.buscar(categoria)
-            if b != None:
-                c = b.senders.buscar(sender.data.correo)
-                if c != None:
-                    c.textos.eliminar(index)
-                    if c.textos.len == 0:
-                        b.senders.eliminar(send)
-                        return "Exito, hay que borrar el nodo."
-                    return "Exito"
-                else:
-                    return "Error1" #El sender no ha mandado correos al receiver en esta categoria
-            else:
-                return "Error2" #El receiver no tiene la categoria escogida
-        else:
-            return "Error3" #El receiver no existe
+#----------------------LOGINS
+@app.route('/VDPU',methods=['POST']) 
+def verifyDUser():
+    correo = str(request.form['correo'])
+    user = usuariosDropbox.buscar(correo)
+    if user != None:
+        return "True"
+    return "False"
+
+@app.route('/verifyVUser',methods=['POST']) 
+def verifyVUser():
+    correo = str(request.form['correo'])
+    user = usuariosDropbox.buscar(correo)
+    if user.valor.verificado == True:
+        return "True"
+    elif user.valor.verificado == False:
+        return "False"
+
+@app.route('/verifyUser',methods=['POST']) 
+def verifyUser():
+    correo = str(request.form['correo'])
+    user = usuariosDropbox.buscar(correo)
+    user.valor.verificado = True
+    return "Validated"
+
+@app.route('/UpArchivo',methods=['POST']) 
+def UpArchivo():
+    archivo = str(request.form['file'])
+    archivoprueba = archivo
+    return archivoprueba
+
+@app.route('/AddBD',methods=['POST']) 
+def AddBD():
+    archivo = str(request.form['text'])
+    bitaDrop.insertar(archivo)
+    return archivo
+
+@app.route('/AddBG',methods=['POST']) 
+def AddBG():
+    archivo1 = str(request.form['text'])
+    bitaGM.insertar(archivo1)
+    return archivo1
+
+@app.route('/GetBitaG') 
+def GetBitaG():
+    bitacora1 = bitaGM.getAll()
+    return bitacora1
+
+@app.route('/GetBitaD') 
+def GetBitaD():
+    bitacora = bitaDrop.getAll()
+    return bitacora
+
+
+@app.route('/loginDrop',methods=['POST']) 
+def loginDrop():
+    correo = str(request.form['correo'])
+    passw = str(request.form['password'])
+    user = usuariosDropbox.buscar(correo)
+    if user == None:
+        return "False"
     else:
-        return "Error4" #El sender no existe
+        if user.valor.verificado == True:
+            if user.valor.password == passw:
+                return "True"
+            else:
+                return "False"
+        else:
+             return "False"
+    
+@app.route('/loginGmail',methods=['POST']) 
+def loginGmail():
+    correo = str(request.form['correo'])
+    passw = str(request.form['password'])
+    a = matrizGmail.buscarConString(correo)
+    if a == None:
+        return "False"
+    else:
+        if a.data.password == passw:
+            return "True"
+        else:
+            return "False"
 
-@app.route('/setFirma',methods=['POST'])
-def setFirma():	
-	usuario = str(request.form['user'])
-	firma = str(request.form['firma'])
-	receiver = matrizGmail.buscarConString(usuario)
-	if receiver != None:
-		receiver.data.setFirma(firma)
-		return "exito"
-	else:
-		return "Error" #No existe el usuario
+#---------------------METODOS QUE AGREGAN
 
-@app.route('/GetCategorias',methods=['POST']) 
-def getCategorias():
-    receive = str(request.form['receiver'])
-    receiver = matrizGmail.buscarConString(receive)
-    a = matrizGmail.buscarConString(receiver.data.correo).correos.getAll()
-    return a
+@app.route('/crearCarpeta',methods=['POST']) 
+def crearCarpeta():
+    use = str(request.form['user'])
+    path = str(request.form['path'])
+    nombre = str(request.form['nombre'])
+    user = usuariosDropbox.buscar(use)
+    dir = path.split("/")
+    if user != None:
+        arbolActual = user.valor.root
+        for i in range(1, len(dir)):
+            b = dir[i]
+            if b != "":
+                buscado = arbolActual.search(b)
+                if buscado == None:
+                    return "Error2" #No existe el directorio"
+                else:
+        
+                    arbolActual = buscado.carpetas
+        arbolActual.insert(nombre, itemB())
+        receiver = matrizGmail.buscarConString(use)
+        sender = matrizGmail.buscarConString("staff@dropbox.com")   
+        receiver.agregarCorreo(sender.data.correo, "Se ha creado la carpeta: "+nombre +" en la ruta: "+path, "general")
+        return "Exito"
+    else:
+        return "Error" #No existe el usuario
+    
+@app.route('/crearArchivo',methods=['POST']) 
+def crearArchivo():
+    use = str(request.form['user'])
+    path = str(request.form['path'])
+    nombre = str(request.form['nombre'])
+    bytes = str(request.form['bytes'])
+    user = usuariosDropbox.buscar(use)
+    dir = path.split("/")
+    if user != None:
+        arbolActual = user.valor.root
+        avl = None
+        for i in range(1, len(dir)):
+            b = dir[i]
+            if b != "":
+                buscado = arbolActual.search(b)
+                if buscado == None:
+                    return "Error2"#No existe el directorio"
+                else:
+                    arbolActual = buscado.carpetas
+                    avl = buscado.archivos
+        if avl != None:
+            avl.insertar(bytes,nombre)
+            receiver = matrizGmail.buscarConString(use)
+            sender = matrizGmail.buscarConString("staff@dropbox.com")   
+            receiver.agregarCorreo(sender.data.correo, "Se ha cargado el archivo: "+nombre, "general")
+
+        else:
+            avl = user.valor.archivosRoot
+        return "Exito"
+            
+    else:
+        return "Error" #No existe el usuario
+
+@app.route('/addUserGmail',methods=['POST']) 
+def addUserGmail():
+    dominio = str(request.form['dominio'])
+    inicial = str(request.form['inicial'])
+    usuario = str(request.form['usuario'])
+    password = str(request.form['password'])
+    encontrado = False
+    index = len(listaDominios)
+    for x in range(0, (index)):        
+        if listaDominios[x] == dominio:
+            encontrado = True
+            x = index + 100
+    if encontrado == True:
+        stringCorreo = str(usuario) + "@" + str(dominio)
+        userX = Usuario(password, stringCorreo, usuario)
+        matrizGmail.insertar(inicial, dominio, userX, stringCorreo)
+        return matrizGmail.buscarConString(stringCorreo).data.correo
+    else: 
+        return "Error" #No existe el dominio
 
 @app.route('/addCategoria',methods=['POST']) 
 def addCategoria():
@@ -1211,7 +1656,145 @@ def addCategoria():
         return str(matrizGmail.buscarConString(receiver.data.correo).correos.len);
     else:
         return "Error" #No existe el usuario
-		
+
+@app.route('/addUsuarioDrop',methods=['POST']) 
+def addUsuarioDrop():
+    correo = str(request.form['correo'])
+    password = str(request.form['password'])
+    
+    userTemp = UsuarioDrop(password, correo)
+    use = usuariosDropbox.buscar(correo)
+    if use == None:
+        usuariosDropbox.insertar(userTemp, correo)
+        receiver = matrizGmail.buscarConString(correo)
+        sender = matrizGmail.buscarConString("staff@dropbox.com")
+        if sender != None and receiver != None:
+            receiver.agregarCorreo(sender.data.correo, "Bienvenido a Dropbox. Verifica tu cuenta en el siguiente boton.", "general")
+            return "Exito"
+        return "Error2" #El correo no existe en la matriz
+    else:
+        return "Error" #El correo del usuario ya tiene una cuenta en dropbox
+
+@app.route('/addDominio',methods=['POST']) 
+def addDominio():
+    p = str(request.form['dominio'])
+    listaDominios.append(p)
+    return "'" + str(listaDominios[len(listaDominios) - 1]) + "'"
+
+@app.route('/ViewSender',methods=['POST']) 
+def ViewSender():
+    correo = str(request.form['correo'])
+    a = matrizGmail.buscarConString(correo)
+    if a == None:
+        return "False"
+    else:
+        return "True"
+#------------------------METODOS QUE OBTIENEN DATOS
+@app.route('/SDomains') 
+def SDomains():
+    respuesta = listaDominios[0]
+    for x in range(1, len(listaDominios)):
+        respuesta = respuesta + "," + listaDominios[x] 
+    return  respuesta
+
+@app.route('/SizeD') 
+def SizeD():
+    respuesta = str(len(listaDominios))
+    return  respuesta
+
+    
+@app.route('/getListaDeArchivos',methods=['POST']) 
+def getListaDeArchivos():
+    use = str(request.form['user'])
+    path = str(request.form['path'])
+    user = usuariosDropbox.buscar(use)
+    dir = path.split("/")
+    if user != None:
+        arbolActual = user.valor.root
+        avl = None
+        for i in range(1, len(dir)):
+            b = dir[i]
+            if b != "":
+                buscado = arbolActual.search(b)
+                if buscado == None:
+                    return "Error2" #No existe el directorio"
+                else:
+                    arbolActual = buscado.carpetas
+                    avl = buscado.archivos
+        return avl.getPostOrden()
+    else:
+        return "Error" #no existe el usuario de dropbox
+    
+@app.route('/getUnArchivo',methods=['POST']) 
+def getUnArchivo():
+    use = str(request.form['user'])
+    path = str(request.form['path'])
+    nombre = str(request.form['nombre'])
+    user = usuariosDropbox.buscar(use)
+    dir = path.split("/")
+    if user != None:
+        arbolActual = user.valor.root
+        avl = None
+        for i in range(1, len(dir)):
+            b = dir[i]
+            if b != "":
+                buscado = arbolActual.search(b)
+                if buscado == None:
+                    return "Error2-" + str(b) #No existe el directorio"
+                else:
+                    arbolActual = buscado.carpetas
+                    avl = buscado.archivos
+        if avl != None:
+           response = avl.buscar(nombre)
+        else:
+            response = user.valor.archivosRoot.buscar(nombre)
+        if response != None:
+            receiver = matrizGmail.buscarConString(use)
+            sender = matrizGmail.buscarConString("staff@dropbox.com")   
+            receiver.agregarCorreo(sender.data.correo, "Se ha descargado el archivo: "+nombre, "general")
+            return response.key
+            return "Exito"
+        else:
+            return "Error" #No existe el archivo
+    else:
+        return "Error" #No existe el usuario de dropbox
+
+    
+@app.route('/getTextosDeUnSender',methods=['POST']) 
+def getTextosDeUnSender():
+    send = str(request.form['sender'])
+    receive = str(request.form['receiver'])
+    cat = str(request.form['categoria'])
+    sender = matrizGmail.buscarConString(send)
+    receiver = matrizGmail.buscarConString(receive)
+    if sender != None:
+        a = matrizGmail.buscarConString(receiver.data.correo).correos.buscar(cat)
+        if a != None:
+            b = a.senders.buscar(sender.data.correo)
+            if b != None:
+                return b.textos.getAll()
+            else:
+                return "Error3" #El receiver no tiene correos del sender en esta categoria
+        else:
+            return "Error2" #El receiver no tiene una categoria que se llame como el parametro
+    else:
+        return "Error" #El correo sender no existe
+
+@app.route('/DelGmail',methods=['POST']) 
+def DelGmail():
+    receive = str(request.form['receiver'])
+    receiver = matrizGmail.buscarConString(receive)
+    matrizGmail.eliminar(receiver);
+    return "Exito"
+    
+@app.route('/GetCategorias',methods=['POST']) 
+def getCategorias():
+    receive = str(request.form['receiver'])
+    receiver = matrizGmail.buscarConString(receive)
+    a = matrizGmail.buscarConString(receiver.data.correo).correos.getAll()
+    return a
+    
+
 @app.route('/getSenders',methods=['POST']) 
 def getSenders():
     receive = str(request.form['receiver'])
@@ -1223,6 +1806,18 @@ def getSenders():
             return a.senders.inorden()
         else:
             return "Error2" #No existe la categoria
+    else:
+        return "Error" #No existe el usuario
+
+#--------------------------METODOS QUE MODIFICAN ESTRUCTURAS
+
+@app.route('/eliminarUserDrop',methods=['POST']) 
+def eliminarUserDrop():
+    use = str(request.form['user'])
+    user = usuariosDropbox.buscar(use)
+    if user != None:
+        usuariosDropbox.eliminar(usuariosDropbox.buscarIndex(use))
+        return "Exito"
     else:
         return "Error" #No existe el usuario
 
@@ -1264,6 +1859,52 @@ def moverCorreoDeCategoria():
             return "Error2" #No existe la categoria de origen
     else:
         return "Error" #No existe alguno de los dos correos
+    
+    
+    
+@app.route('/mandarCorreo',methods=['POST']) 
+def mandarCorreo():
+
+    send = str(request.form['sender'])
+    receive = str(request.form['receiver'])
+    texto = str(request.form['texto'])
+    sender = matrizGmail.buscarConString(send)
+    receiver = matrizGmail.buscarConString(receive)
+    if sender != None and receiver != None:
+        receiver.agregarCorreo(sender.data.correo, texto, "general")
+        return "Exito"
+    else:
+        return "Error" #El correo del recipiente no existe.
+
+@app.route('/eliminarCorreo',methods=['POST']) 
+def eliminarCorreo():
+    send = str(request.form['sender'])
+    categoria = str(request.form['categoria'])
+    receive = str(request.form['receiver'])
+    sender = matrizGmail.buscarConString(send)
+    receiver = matrizGmail.buscarConString(receive)
+    index = str(request.form['index'])
+    
+    if sender != None:
+        a = matrizGmail.buscarConString(receiver.data.correo)
+        if a != None:
+            b = a.correos.buscar(categoria)
+            if b != None:
+                c = b.senders.buscar(sender.data.correo)
+                if c != None:
+                    c.textos.eliminar(index)
+                    if c.textos.len == 0:
+                        b.senders.eliminar(send)
+                        return "Exito, hay que borrar el nodo."
+                    return "Exito"
+                else:
+                    return "Error1" #El sender no ha mandado correos al receiver en esta categoria
+            else:
+                return "Error2" #El receiver no tiene la categoria escogida
+        else:
+            return "Error3" #El receiver no existe
+    else:
+        return "Error4" #El sender no existe
 
 @app.route('/eliminarCategoria',methods=['POST']) 
 def eliminarCategoria():
@@ -1298,27 +1939,136 @@ def eliminarCategoria():
     else:        
         return "Error" #No se puede eliminar la categoria de general
 
-
-@app.route('/getTextosDeUnSender',methods=['POST']) 
-def getTextosDeUnSender():
-    send = str(request.form['sender'])
-    receive = str(request.form['receiver'])
-    cat = str(request.form['categoria'])
-    sender = matrizGmail.buscarConString(send)
-    receiver = matrizGmail.buscarConString(receive)
-    if sender != None:
-        a = matrizGmail.buscarConString(receiver.data.correo).correos.buscar(cat)
-        if a != None:
-            b = a.senders.buscar(sender.data.correo)
-            if b != None:
-                return b.textos.getAll()
-            else:
-                return "Error3" #El receiver no tiene correos del sender en esta categoria
-        else:
-            return "Error2" #El receiver no tiene una categoria que se llame como el parametro
+#-------------------METODOS QUE GRAFICAN
+    
+@app.route('/graphAVLArchivos',methods=['POST']) 
+def graphAVLArchivos():
+    user = str(request.form['user'])
+    path = str(request.form['path'])
+    use = usuariosDropbox.buscar(user)
+    
+    dir = path.split("/")
+    if use != None:
+        avl = use.valor.archivosRoot
+        arbolActual = use.valor.root
+        for i in range(1, len(dir)):
+            b = dir[i]
+            if b != "":
+                buscado = arbolActual.search(b)
+                if buscado == None:
+                    return "Error2" #No existe el directorio"
+                else:
+                    arbolActual = buscado.carpetas
+                    avl = buscado.archivos
+        return str(avl.toDotAux()) #Directorio encontrado
+    
     else:
-        return "Error" #El correo sender no existe
+        return "Error" #No existe el usuario
 
+@app.route('/graphArbolB',methods=['POST']) 
+def graphArbolB():
+    user = str(request.form['user'])
+    path = str(request.form['path'])
+    use = usuariosDropbox.buscar(user)
+    dir = path.split("/")
+    if use != None:
+        arbolActual = use.valor.root
+        for i in range(1, len(dir)):
+            b = dir[i]
+            if b != "":
+                buscado = arbolActual.search(b)
+                if buscado == None:
+                    return "Error2" #No existe el directorio"
+                else:
+                    arbolActual = buscado.carpetas
+        return str(arbolActual.toDot()) #Directorio encontrado
+    else:
+        return "Error" #No existe el usuario
 
+    
+@app.route('/graphCategorias',methods=['POST']) 
+def graphCategorias():
+    user = str(request.form['user'])
+    receiver = matrizGmail.buscarConString(user)
+    if receiver != None:
+        return str(matrizGmail.buscarConString(receiver.data.correo).correos.graphviz());
+    else:
+        return "Error" #No existe el usuario
+    
+@app.route('/graphUsersDrop',methods=['POST']) 
+def graphUsersDrop():
+    param = str(request.form['param'])
+    return str(usuariosDropbox.graphviz())    
+
+@app.route('/graphMatriz') 
+def graphMatriz():
+    return matrizGmail.getGraphviz()
+
+@app.route('/getGraphSenders',methods=['POST']) 
+def getGraphABB():
+    receive = str(request.form['receiver'])
+    categoria = str(request.form['categoria'])
+    receiver = matrizGmail.buscarConString(receive)    
+    if receiver != None:
+        try:
+            response = matrizGmail.buscarConString(receiver.data.correo).correos.buscar(categoria).senders.getGraphviz()
+        except:
+            return "Error2"
+        if response == "":
+            return "VACIO"
+        else:
+            return response
+    else:
+        return "Error" #No existe el  usuario
+
+@app.route('/setFirma',methods=['POST'])
+def setFirma():	
+	usuario = str(request.form['user'])
+	firma = str(request.form['firma'])
+	receiver = matrizGmail.buscarConString(usuario)
+	if receiver != None:
+		receiver.data.setFirma(firma)
+		return "exito"
+	else:
+		return "Error" #No existe el usuario
+
+@app.route('/addFirma',methods=['POST'])
+def addFirma():	
+	usuario = str(request.form['user'])
+	firma = str(request.form['firma'])
+	receiver = matrizGmail.buscarConString(usuario)
+	if receiver != None:
+		receiver.data.addFirma(firma)
+		receiver.data.setFirma(firma)
+		return "exito"
+	else:
+		return "Error" #No existe el usuario
+
+@app.route('/getFirmas',methods=['POST'])
+def getFirmas():
+    receive = str(request.form['user'])
+    receiver = matrizGmail.buscarConString(receive)
+    a = receiver.data.getFirmas()
+    return a
+
+@app.route('/getDFirma',methods=['POST'])
+def getDFirma():
+    receive = str(request.form['user'])
+    receiver = matrizGmail.buscarConString(receive)
+    a = receiver.data.getDFirma()
+    return a
+	
+@app.route('/delFirma',methods=['POST'])
+def delFirma():	
+	usuario = str(request.form['user'])
+	firma = str(request.form['firma'])
+	receiver = matrizGmail.buscarConString(usuario)
+	if receiver != None:
+		receiver.data.delFirma(firma)
+		return "exito"
+	else:
+		return "Error" #No existe el usuario
+
+	
 if __name__ == "__main__":
   app.run(debug=True, host='0.0.0.0')
