@@ -1332,5 +1332,12 @@ def loginGmail():
         else:
             return "False"
 
+@app.route('/SDomains') 
+def SDomains():
+    respuesta = listaDominios[0]
+    for x in range(1, len(listaDominios)):
+        respuesta = respuesta + "," + listaDominios[x] 
+    return  respuesta
+
 if __name__ == "__main__":
   app.run(debug=True, host='0.0.0.0')

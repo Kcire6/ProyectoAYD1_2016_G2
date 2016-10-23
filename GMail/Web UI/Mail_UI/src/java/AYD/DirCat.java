@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Erick
  */
-@WebServlet(name = "loginAcc", urlPatterns = {"/loginAcc"})
-public class loginAcc extends HttpServlet {
+@WebServlet(name = "DirCat", urlPatterns = {"/DirCat"})
+public class DirCat extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,34 +34,9 @@ public class loginAcc extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
+           
+            response.sendRedirect("Categorias.jsp");
             
-           final String datos[] = request.getParameterValues("datos");
-            String respuesta = ""; 
-            try{
-		respuesta = (ConnectionFLASK.loginGmail(datos[0], datos[1])); 
-            if(respuesta.equals("True")){
-            
-                ConnectionFLASK.ActiveUser = datos[0];
-          response.sendRedirect("MainMenu.jsp?user="+ ConnectionFLASK.ActiveUser);
-            
-            }else if(respuesta.equals("False")){
-             response.sendRedirect("ErrorLogin.jsp");
-            }   
-            }catch(Exception o){
-            response.sendRedirect("ConnectionLost.jsp");
-            }
-            
-            /* TODO output your page here. You may use following sample code. */
-           /*
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Proceso1</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            //out.println("<h1>Servlet Proceso1 at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");*/
         } finally {
             out.close();
         }
