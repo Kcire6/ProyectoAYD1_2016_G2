@@ -116,6 +116,17 @@ public class ConnectionFLASK {
         return (response_string.replace('"', ' '));
     }
     
+    public static void insertarMatriz(String inicial, String dominio, String usuario, String pass) {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("dominio", dominio)
+                .add("inicial", inicial)
+                .add("usuario", usuario)
+                .add("password", pass)
+                .build();
+        String r = getString("addUserGmail", formBody);
+        System.out.println("rInsertar-" + r);
+    }
+    
     public static ArrayList<String> getSenders(String receiver, String cat) {
         RequestBody formBody = new FormEncodingBuilder()
                 .add("receiver", receiver)

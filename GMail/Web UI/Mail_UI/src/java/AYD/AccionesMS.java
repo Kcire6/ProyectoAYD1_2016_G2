@@ -47,7 +47,7 @@ public class AccionesMS extends HttpServlet {
 
                     String firma = request.getParameter("textofirma");
                     ConnectionFLASK.setFirma(ConnectionFLASK.ActiveUser, firma);
-                    response.sendRedirect("index.jsp");
+                    response.sendRedirect("MainMenu.jsp");
                 } catch (Exception o) {
 
                 }
