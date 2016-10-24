@@ -117,6 +117,7 @@ public class ConnectionFLASK {
         
         return r;
     }
+   
 
     public static ArrayList<String> GetCategorias(String user) {
         RequestBody formBody = new FormEncodingBuilder()
