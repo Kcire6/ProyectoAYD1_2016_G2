@@ -93,7 +93,16 @@ public class ConnectionFLASK {
         System.out.println("raddFirma- "+ r);
         return r;
     }
-    
+       public static String delFirma(String user,String firma) {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("user", user)
+                .add("firma",firma)
+                .build();
+        setFirma(user, firma);
+        String r = getString("delFirma", formBody);
+        System.out.println("rdelFirma- "+ r);
+        return r;
+    }
         public static ArrayList<String> getFirmas(String user) {
         RequestBody formBody = new FormEncodingBuilder()
                 .add("user", user)
