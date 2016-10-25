@@ -1,10 +1,11 @@
+package AYD;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
-package AYD;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -17,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Erick
  */
-@WebServlet(name = "SendMess", urlPatterns = {"/SendMess"})
-public class SendMess extends HttpServlet {
+@WebServlet(urlPatterns = {"/DirCACC"})
+public class DirCACC extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,17 +35,21 @@ public class SendMess extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-           String reci = request.getParameter("reci");
-           String messa = request.getParameter("mensaje");
-           
-           try{
-               ConnectionFLASK.mandarCorreo(ConnectionFLASK.ActiveUser, reci, messa);
-               response.sendRedirect("MainMenu.jsp");
-                       
-           }catch(Exception o){
-               
-           }
-           
+            try{
+            
+            }catch(Exception or){
+            }
+            response.sendRedirect("CreateAc.jsp");
+            /* TODO output your page here. You may use following sample code. 
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet DirCACC</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet DirCACC at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");*/
         } finally {
             out.close();
         }

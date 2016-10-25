@@ -1,10 +1,11 @@
+package AYD;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
-package AYD;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -17,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Erick
  */
-@WebServlet(name = "SendMess", urlPatterns = {"/SendMess"})
-public class SendMess extends HttpServlet {
+@WebServlet(urlPatterns = {"/accion2"})
+public class accion2 extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,17 +35,8 @@ public class SendMess extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-           String reci = request.getParameter("reci");
-           String messa = request.getParameter("mensaje");
-           
-           try{
-               ConnectionFLASK.mandarCorreo(ConnectionFLASK.ActiveUser, reci, messa);
-               response.sendRedirect("MainMenu.jsp");
-                       
-           }catch(Exception o){
-               
-           }
-           
+            ConnectionFLASK.ActiveUser="";
+            response.sendRedirect("index.jsp");
         } finally {
             out.close();
         }

@@ -108,6 +108,25 @@ public class ConnectionFLASK {
         //System.out.println("raddCategoria- " + r);
     }
 
+    public static String SDomains() throws Exception {
+        URL url = new URL("http://0.0.0.0:5000/SDomains");
+        Request request = new Request.Builder().url(url).build();
+        Response response = webClient.newCall(request).execute();
+        String response_string = response.body().string();
+        return (response_string.replace('"', ' '));
+    }
+    
+    public static void insertarMatriz(String inicial, String dominio, String usuario, String pass) {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("dominio", dominio)
+                .add("inicial", inicial)
+                .add("usuario", usuario)
+                .add("password", pass)
+                .build();
+        String r = getString("addUserGmail", formBody);
+        System.out.println("rInsertar-" + r);
+    }
+    
     public static ArrayList<String> getSenders(String receiver, String cat) {
         RequestBody formBody = new FormEncodingBuilder()
                 .add("receiver", receiver)
@@ -184,4 +203,13 @@ public class ConnectionFLASK {
         //System.out.println("raddCategoria- " + r);
     }
 
+        public static String loginGmail(String correo, String pass) {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("correo", correo)
+                .add("password", pass)
+                .build();
+        String r = getString("loginGmail", formBody);
+        return r;
+    }
+    
 }

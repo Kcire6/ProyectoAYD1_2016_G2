@@ -1,9 +1,12 @@
 <%-- 
-    Document   : index
-    Created on : 09-may-2015, 16:59:02
+    Document   : MainMenu
+    Created on : 09-may-2015, 18:54:13
     Author     : Erick
 --%>
-
+<%
+String use = request.getParameter("user");
+                         
+%>    
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -136,19 +139,21 @@ width: 250px;
 </head>
 <body>
 <div id="login">
-<h1><strong>GmailEDD2015 Login</strong></h1>
-<form action="loginAcc" method="get" border:none>
+    <h1><strong>MAIN MENU</strong> (<%=use%>)</h1>
+<form action="DirCat" method="get" border:none>
 <fieldset>
-<p><input type="text" name= "datos" required value="Username" onBlur="if(this.value=='')this.value='Username'" onFocus="if(this.value=='Username')this.value='' "></p>
-<p><input type="password" name= "datos" required value="Password" onBlur="if(this.value=='')this.value='Password'" onFocus="if(this.value=='Password')this.value='' "></p>
-<p><input type="submit" value="Login"></p>
+<p><input type="submit" value="INBOX"></p>
+</fieldset>
+</form><form action="DirNewM" method="get" border:none>
+<fieldset>
+<p><input type="submit" value="NEW MAIL"></p>
 </fieldset>
 </form>
-<form action="DirCACC" method="get">
+<form action="accion2" method="get" border:none>
 <fieldset>
-<p><input type="submit" value="Create Account"></p>    
+<p><input type="submit" value="LOGOUT"></p>
 </fieldset>
-</form></div> <!-- end login -->
+</form>
+</div> <!-- end login -->
 </body>
 </html>
-

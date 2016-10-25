@@ -1319,6 +1319,45 @@ def getTextosDeUnSender():
     else:
         return "Error" #El correo sender no existe
 
+@app.route('/loginGmail',methods=['POST']) 
+def loginGmail():
+    correo = str(request.form['correo'])
+    passw = str(request.form['password'])
+    a = matrizGmail.buscarConString(correo)
+    if a == None:
+        return "False"
+    else:
+        if a.data.password == passw:
+            return "True"
+        else:
+            return "False"
+
+@app.route('/SDomains') 
+def SDomains():
+    respuesta = listaDominios[0]
+    for x in range(1, len(listaDominios)):
+        respuesta = respuesta + "," + listaDominios[x] 
+    return  respuesta
+
+@app.route('/addUserGmail',methods=['POST']) 
+def addUserGmail():
+    dominio = str(request.form['dominio'])
+    inicial = str(request.form['inicial'])
+    usuario = str(request.form['usuario'])
+    password = str(request.form['password'])
+    encontrado = False
+    index = len(listaDominios)
+    for x in range(0, (index)):        
+        if listaDominios[x] == dominio:
+            encontrado = True
+            x = index + 100
+    if encontrado == True:
+        stringCorreo = str(usuario) + "@" + str(dominio)
+        userX = Usuario(password, stringCorreo, usuario)
+        matrizGmail.insertar(inicial, dominio, userX, stringCorreo)
+        return matrizGmail.buscarConString(stringCorreo).data.correo
+    else: 
+        return "Error" #No existe el dominio
 
 if __name__ == "__main__":
   app.run(debug=True, host='0.0.0.0')
