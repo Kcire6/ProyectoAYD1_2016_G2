@@ -136,7 +136,7 @@ width: 250px;
 </head>
 <body>
 <div id="login">
-<h1><strong>GmailEDD2015 Login</strong></h1>
+<h1><strong>GmailLogin</strong></h1>
 <form action="loginAcc" method="get" border:none>
 <fieldset>
 <p><input type="text" name= "datos" required value="Username" onBlur="if(this.value=='')this.value='Username'" onFocus="if(this.value=='Username')this.value='' "></p>
