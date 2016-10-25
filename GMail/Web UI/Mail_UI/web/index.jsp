@@ -146,7 +146,9 @@ width: 250px;
 </form>
 <form action="DirCACC" method="get">
 <fieldset>
-<p><input type="submit" value="Create Account"></p>    
+<p><input type="submit" value="Create Account"></p>
+<p><input name="boton" type="submit" value="FIRMAS" />
+</p>     
 </fieldset>
 </form></div> <!-- end login -->
 </body>
