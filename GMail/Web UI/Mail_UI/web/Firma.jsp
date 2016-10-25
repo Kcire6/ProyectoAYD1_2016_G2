@@ -184,9 +184,6 @@
                     <input name="boton" type="submit" value="AGREGAR FIRMA" />
                 </td> 
                 <td>
-                    <input name="boton" type="submit" value="ELIMINAR FIRMA" />
-                </td> 
-                <td>
                     <input name="boton" type="submit" value="SELECCIONAR FIRMA POR DEFECTO" />
                 </td> 
             </tr> 

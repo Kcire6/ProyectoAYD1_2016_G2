@@ -53,6 +53,16 @@ public class AccionesMS extends HttpServlet {
 
                 }
 
+            } else if (resultado.equals("ELIMINAR FIRMA")) {
+                try {
+
+                    String firma = request.getParameter("firma");
+                    ConnectionFLASK.delFirma(ConnectionFLASK.ActiveUser, firma);
+                    response.sendRedirect("index.jsp");
+                } catch (Exception o) {
+
+                }
+
             } else if (resultado.equals("ASIGNAR")) {
                 try {
                     String firma = request.getParameter("firma");

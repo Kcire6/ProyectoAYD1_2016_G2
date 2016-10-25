@@ -98,7 +98,6 @@ public class ConnectionFLASK {
                 .add("user", user)
                 .add("firma",firma)
                 .build();
-        setFirma(user, firma);
         String r = getString("delFirma", formBody);
         System.out.println("rdelFirma- "+ r);
         return r;

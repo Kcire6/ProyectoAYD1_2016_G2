@@ -192,7 +192,14 @@ select{
        </select>
 </li>
 <li>
-     <input name="boton" type="submit" value="ASIGNAR" />
+    <tr> 
+        <td>
+            <input name="boton" type="submit" value="ASIGNAR" />
+        </td> 
+        <td>
+            <input name="boton" type="submit" value="ELIMINAR FIRMA" />
+        </td> 
+    </tr>
 </li>
 </ul>
 </form>
