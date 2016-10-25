@@ -82,7 +82,50 @@ public class ConnectionFLASK {
         System.out.println("rsetFirma- "+ r);
         return r;
     }
-    
+        
+        public static String addFirma(String user,String firma) {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("user", user)
+                .add("firma",firma)
+                .build();
+        setFirma(user, firma);
+        String r = getString("addFirma", formBody);
+        System.out.println("raddFirma- "+ r);
+        return r;
+    }
+       public static String delFirma(String user,String firma) {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("user", user)
+                .add("firma",firma)
+                .build();
+        String r = getString("delFirma", formBody);
+        System.out.println("rdelFirma- "+ r);
+        return r;
+    }
+        public static ArrayList<String> getFirmas(String user) {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("user", user)
+                .build();
+        String r = getString("getFirmas", formBody);
+        String[] firmas = r.split(",,,");
+        System.out.println("rgetFirmas- "+ r);
+        ArrayList<String> frm = new ArrayList<String>();
+        for(int x=1; x < firmas.length;x++){
+            System.out.println("----|" + firmas[x]+"|----");
+            frm.add(firmas[x]);
+        }
+        return frm;
+    }       
+    public static String getDFirma(String user) {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("user", user)
+                .build();
+        String r = getString("getDFirma", formBody);
+        System.out.println("rgetDFirma- "+ r);
+        
+        return r;
+    }
+   
 
     public static ArrayList<String> GetCategorias(String user) {
         RequestBody formBody = new FormEncodingBuilder()
