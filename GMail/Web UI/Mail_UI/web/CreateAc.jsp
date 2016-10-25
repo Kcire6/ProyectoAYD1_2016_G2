@@ -127,13 +127,5 @@ select{
     </li>
     </ul>
         </form>
-    <form action="DirCDom" method="get" border:none>
-<ul class="form-style-1">
-    <li>
-         <input type="submit" name="boton" value="CREATE DOMAIN" />
-    <input name="boton" type="submit" value="INDEX" />
-    </li>
-    </ul>
-</form>
-  </body>
+   </body>
 </html>
