@@ -12,9 +12,27 @@ class Usuario():
 		self.password = password
 		self.correo = correo
 		self.firma = ""
+		self.ListaFirmas = []
 		
 	def setFirma(self, firma):
-		self.firma = firma
+		self.firma = firma		
+		
+	def getDFirma(self):
+		frm = self.firma
+		return frm
+		
+	def addFirma(self,firma):
+		self.ListaFirmas.append(firma)
+	
+	def getFirmas(self):
+		y = ""
+		x = 0
+		for x in range(0,len(self.ListaFirmas)):
+			y = y + ",,," + self.ListaFirmas[x] 
+		return y 
+
+	def delFirma(self,firma):
+		self.ListaFirmas.remove(firma)
             
 class UsuarioDrop():
     def __init__(self, password, correo):
@@ -1358,6 +1376,44 @@ def addUserGmail():
         return matrizGmail.buscarConString(stringCorreo).data.correo
     else: 
         return "Error" #No existe el dominio
+
+@app.route('/addFirma',methods=['POST'])
+def addFirma():	
+	usuario = str(request.form['user'])
+	firma = str(request.form['firma'])
+	receiver = matrizGmail.buscarConString(usuario)
+	if receiver != None:
+		receiver.data.addFirma(firma)
+		receiver.data.setFirma(firma)
+		return "exito"
+	else:
+		return "Error" #No existe el usuario
+
+@app.route('/getFirmas',methods=['POST'])
+def getFirmas():
+    receive = str(request.form['user'])
+    receiver = matrizGmail.buscarConString(receive)
+    a = receiver.data.getFirmas()
+    return a
+
+@app.route('/getDFirma',methods=['POST'])
+def getDFirma():
+    receive = str(request.form['user'])
+    receiver = matrizGmail.buscarConString(receive)
+    a = receiver.data.getDFirma()
+    return a
+	
+@app.route('/delFirma',methods=['POST'])
+def delFirma():	
+	usuario = str(request.form['user'])
+	firma = str(request.form['firma'])
+	receiver = matrizGmail.buscarConString(usuario)
+	if receiver != None:
+		receiver.data.delFirma(firma)
+		return "exito"
+	else:
+		return "Error" #No existe el usuario		
+		
 
 if __name__ == "__main__":
   app.run(debug=True, host='0.0.0.0')

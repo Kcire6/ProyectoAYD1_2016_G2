@@ -5,6 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+String Dfirma = "&#13;&#10;&#13;&#10;"+AYD.ConnectionFLASK.getDFirma(AYD.ConnectionFLASK.ActiveUser);
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -178,8 +181,14 @@
                 <li>
                     <input type="text" name="reci" class="field-style field-split align-left" placeholder="Email" />
                 </li>
-                <li>
-                    <textarea name="mensaje" class="field-style" placeholder="Message"></textarea>
+				 <li><%
+                    if(Dfirma.equals("null")){%>
+                        <textarea name="mensaje" class="field-style" placeholder="Message"></textarea>
+                    <%}else{%>
+                        <textarea name="mensaje" class="field-style" placeholder="Message"><%=Dfirma%></textarea>   
+                    <%
+                    }
+                    %>
                 </li>
                 <li>
                     <input type="submit" value="SEND MESSAGE" />
@@ -195,7 +204,7 @@
                     <input name="boton" type="submit" value="DELETE" />
                 </td> 
                 <td>
-                    <input name="boton" type="submit" value="FIRMA" />
+                    <input name="boton" type="submit" value="FIRMAS" />
                 </td> 
             </tr> 
             </li>
