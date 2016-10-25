@@ -39,7 +39,7 @@ public class SendMess extends HttpServlet {
            
            try{
                ConnectionFLASK.mandarCorreo(ConnectionFLASK.ActiveUser, reci, messa);
-               response.sendRedirect("MainMenu.jsp");
+               response.sendRedirect("MainMenu.jsp?user=" + ConnectionFLASK.ActiveUser);
                        
            }catch(Exception o){
                

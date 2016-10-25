@@ -48,7 +48,7 @@ public class AccionesMS extends HttpServlet {
 
                     String firma = request.getParameter("textofirma");
                     ConnectionFLASK.addFirma(ConnectionFLASK.ActiveUser, firma);
-                    response.sendRedirect("index.jsp");
+                    response.sendRedirect("MainMenu.jsp?user=" + ConnectionFLASK.ActiveUser);
                 } catch (Exception o) {
 
                 }
@@ -58,7 +58,7 @@ public class AccionesMS extends HttpServlet {
 
                     String firma = request.getParameter("firma");
                     ConnectionFLASK.delFirma(ConnectionFLASK.ActiveUser, firma);
-                    response.sendRedirect("index.jsp");
+                    response.sendRedirect("MainMenu.jsp?user=" + ConnectionFLASK.ActiveUser);
                 } catch (Exception o) {
 
                 }
@@ -68,7 +68,7 @@ public class AccionesMS extends HttpServlet {
                     String firma = request.getParameter("firma");
                     System.out.println(firma);
                     ConnectionFLASK.setFirma(ConnectionFLASK.ActiveUser, firma);
-                    response.sendRedirect("MainMenu.jsp");
+                    response.sendRedirect("MainMenu.jsp?user=" + ConnectionFLASK.ActiveUser);
                 } catch (Exception o) {
 
                 }
